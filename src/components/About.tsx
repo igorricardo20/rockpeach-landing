@@ -31,7 +31,7 @@ const About: React.FC = () => {
               </h2>
               <div className="prose prose-lg max-w-none">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6 font-inter">
-                  At Rockpeach, we believe technology goes beyond code — it's about
+                  At Rockpeach, we believe technology goes beyond code, it's about
                   creating experiences that connect people and businesses. We develop
                   software with agility and excellence, using modern tools to quickly
                   deliver what our clients need.
