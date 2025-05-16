@@ -48,7 +48,11 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex justify-between items-center">
-          <a href="#" className="flex items-center h-8 ml-2 md:ml-0">
+          <a href="#" className="flex items-center h-8 ml-2 md:ml-0" onClick={e => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setIsOpen(false);
+          }}>
             <img 
               src="/rockpeach-logo.svg" 
               alt="Rockpeach" 

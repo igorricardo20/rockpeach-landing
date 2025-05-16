@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Send, MessageSquare, Phone, Mail } from "lucide-react";
+import { Send, Phone, Mail } from "lucide-react";
 
 const Contact: React.FC = () => {
   const [ref, inView] = useInView({
@@ -53,21 +53,11 @@ const Contact: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="bg-white p-3 rounded-full shadow-sm mr-4">
-                    <MessageSquare size={20} className="text-primary-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-1 font-inter">Chat with the team</h4>
-                    <p className="text-gray-700 text-sm font-inter">Chat with our specialists in real time.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="bg-white p-3 rounded-full shadow-sm mr-4">
                     <Phone size={20} className="text-primary-600" />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 font-inter">Phone</h4>
-                    <p className="text-gray-700 text-sm font-inter">+55 (11) 3456-7890</p>
+                    <p className="text-gray-700 text-sm font-inter">+31 6 87 34 43 45</p>
                   </div>
                 </div>
 
