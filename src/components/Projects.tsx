@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
@@ -16,9 +16,6 @@ const Projects: React.FC = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section 
@@ -70,13 +67,9 @@ const Projects: React.FC = () => {
                 disableOnInteraction: false,
               }}
               pagination={{ clickable: true }}
-              onInit={(swiper) => {
-                // @ts-ignore
-                swiper.params.navigation.prevEl = prevRef.current;
-                // @ts-ignore
-                swiper.params.navigation.nextEl = nextRef.current;
-                swiper.navigation.init();
-                swiper.navigation.update();
+              navigation={{
+                prevEl: '.swiper-button-prev-custom',
+                nextEl: '.swiper-button-next-custom',
               }}
               className="py-10"
             >
@@ -115,14 +108,12 @@ const Projects: React.FC = () => {
             
             <div className="flex justify-center items-center mt-6 space-x-4">
               <button
-                ref={prevRef}
-                className="bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
+                className="swiper-button-prev-custom bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
               >
                 <ChevronLeft size={20} className="text-gray-700" />
               </button>
               <button
-                ref={nextRef}
-                className="bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
+                className="swiper-button-next-custom bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"
               >
                 <ChevronRight size={20} className="text-gray-700" />
               </button>
