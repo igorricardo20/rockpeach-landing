@@ -37,11 +37,10 @@ const Projects: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-6 text-gray-900">
-            Nossos projetos
+            Our projects
           </h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto font-inter">
-            Exploramos novas possibilidades através de tecnologias modernas 
-            para criar experiências digitais impactantes.
+            We explore new possibilities through modern technologies to create impactful digital experiences.
           </p>
         </motion.div>
 
