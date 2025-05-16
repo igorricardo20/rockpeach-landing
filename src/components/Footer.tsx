@@ -63,12 +63,6 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  Careers
-                </a>
-              </li>
-              <li>
                 <a href="#contact" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   Contact
