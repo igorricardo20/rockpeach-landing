@@ -21,6 +21,7 @@ const Navbar: React.FC = () => {
     { name: "About", href: "#about" },
     { name: "Projects", href: "#projects" },
     { name: "How we work", href: "#process" },
+    { name: "Services", href: "#services" },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
