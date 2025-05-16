@@ -58,17 +58,18 @@ const Services: React.FC = () => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
-	// Set transform for animation (from ±600px to ±140px)
+	// Set transform for animation (from ±600px to ±140px on desktop, 0 on mobile)
 	useEffect(() => {
 		const observer = new MutationObserver(() => {
 			(cardRefs.current as (HTMLDivElement | null)[]).forEach((el, idx) => {
 				if (!el) return;
+				const isMobile = window.innerWidth < 768;
 				if (el.classList.contains("animate-service-reveal")) {
-					const finalX = idx % 2 === 0 ? -140 : 140;
+					const finalX = isMobile ? 0 : (idx % 2 === 0 ? -140 : 140);
 					el.style.transform = `translateX(${finalX}px)`;
 					el.style.opacity = "1";
 				} else {
-					const initialX = idx % 2 === 0 ? -600 : 600;
+					const initialX = isMobile ? 0 : (idx % 2 === 0 ? -600 : 600);
 					el.style.transform = `translateX(${initialX}px)`;
 					el.style.opacity = "0";
 				}
@@ -113,8 +114,8 @@ const Services: React.FC = () => {
 							tabIndex={0}
 						>
 							<div className="absolute inset-0 bg-white/95 backdrop-blur-md" />
-							<div className="relative z-10 flex flex-row justify-between items-center h-full pl-5 pr-5 md:pl-10 md:pr-10 py-5 md:py-8 w-full">
-								<div className="flex flex-col justify-center items-start text-left w-[80%] md:w-[80%]">
+							<div className="relative z-10 flex flex-row md:flex-row flex-col justify-between items-center h-full pl-5 pr-5 md:pl-10 md:pr-10 py-5 md:py-8 w-full">
+								<div className="flex flex-col justify-center items-start text-left w-full md:w-[80%] mb-4 md:mb-0">
 									<h3
 										id={`service-title-${idx}`}
 										className="text-2xl md:text-3xl font-manrope font-extrabold text-black mb-2 md:mb-3 drop-shadow tracking-tight"
