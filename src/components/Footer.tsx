@@ -31,7 +31,9 @@ const Footer: React.FC = () => {
                 <Twitter size={20} />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/company/rockpeach/" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
                 aria-label="LinkedIn"
               >
