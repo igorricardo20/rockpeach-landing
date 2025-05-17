@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-8 left-0 right-0 mx-auto flex justify-center w-full"
+        className="absolute bottom-20 sm:bottom-8 left-0 right-0 mx-auto flex justify-center w-full"
       >
         <button 
           onClick={scrollToAbout}

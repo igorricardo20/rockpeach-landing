@@ -25,11 +25,11 @@ const About: React.FC = () => {
           className="relative"
         >
           <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-3 order-2 lg:order-1">
+            <div className="lg:col-span-3 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
               <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-6 text-gray-900">
                 About us
               </h2>
-              <div className="prose prose-lg max-w-none">
+              <div className="prose prose-lg max-w-none px-2 sm:px-0">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6 font-inter">
                   At Rockpeach, we believe technology goes beyond code, it's about
                   creating experiences that connect people and businesses. We develop
@@ -71,18 +71,18 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2 order-1 lg:order-2">
+            <div className="lg:col-span-2 order-1 lg:order-2 flex justify-center">
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl w-56 h-40 sm:w-full sm:h-auto">
                   <img
                     src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=4147&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     alt="Our team working"
-                    className="w-full h-auto object-cover"
+                    className="w-full h-full object-cover"
                   />
                   <div
                     className="absolute inset-0"
