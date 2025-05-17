@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { projects } from "../data/projects";
 
@@ -48,7 +48,7 @@ const Projects: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
+              modules={[Navigation, Pagination]}
               spaceBetween={30}
               slidesPerView={1}
               breakpoints={{
@@ -61,10 +61,6 @@ const Projects: React.FC = () => {
                 1024: {
                   slidesPerView: 3,
                 },
-              }}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
               }}
               pagination={{ clickable: true }}
               navigation={{
@@ -97,7 +93,7 @@ const Projects: React.FC = () => {
                         href="#"
                         className="inline-flex items-center text-primary-600 font-medium hover:underline font-inter"
                       >
-                        Ver detalhes
+                        See details
                         <ExternalLink size={16} className="ml-2" />
                       </a>
                     </div>

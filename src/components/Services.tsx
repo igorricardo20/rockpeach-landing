@@ -118,7 +118,18 @@ const Services: React.FC = () => {
 								<div className="flex flex-col justify-center items-start text-left w-full md:w-[80%] mb-4 md:mb-0">
 									<h3
 										id={`service-title-${idx}`}
-										className="text-2xl md:text-3xl font-manrope font-extrabold text-black mb-2 md:mb-3 drop-shadow tracking-tight"
+										className={
+											`text-2xl md:text-3xl font-manrope font-extrabold mb-2 md:mb-3 drop-shadow tracking-tight bg-clip-text text-transparent ` +
+											(
+												idx === 0
+													? "bg-gradient-to-r from-primary-700 via-primary-500 to-secondary-400"
+													: idx === 1
+													? "bg-gradient-to-r from-primary-500 via-secondary-500 to-accent-400"
+													: idx === 2
+													? "bg-gradient-to-r from-secondary-500 via-accent-500 to-accent-400"
+													: "bg-gradient-to-r from-accent-500 via-primary-400 to-primary-600"
+											)
+										}
 									>
 										{service.title}
 									</h3>

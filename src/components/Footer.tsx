@@ -75,25 +75,25 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-manrope font-bold mb-6">Services</h3>
             <ul className="space-y-4">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
+                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   Web Development
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
+                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   Mobile Apps
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
+                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   UX/UI Design
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
+                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   Tech Consulting
                 </a>
@@ -107,7 +107,7 @@ const Footer: React.FC = () => {
               <p>Zijdevlinder 196</p>
               <p>Nijkerk, Netherlands</p>
               <p>+31 6 87 34 43 45</p>
-              <p>contact@rockpeach.com</p>
+              <p>contact@rockpeach.io</p>
             </address>
           </div>
         </div>
