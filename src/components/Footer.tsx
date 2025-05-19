@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronRight, Instagram, Twitter, Linkedin, Github as GitHub } from "lucide-react";
+import { ChevronRight, Instagram, Linkedin, Github as GitHub } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
@@ -28,9 +28,11 @@ const Footer: React.FC = () => {
               <a 
                 href="#" 
                 className="text-gray-400 hover:text-white transition-colors"
-                aria-label="Twitter"
+                aria-label="X"
+                style={{ fontFamily: 'monospace', fontWeight: 900, fontSize: 20, lineHeight: 1 }}
               >
-                <Twitter size={20} />
+                {/* Unicode 𝕏 for X.com brand */}
+                <span style={{ fontFamily: 'serif, monospace', fontWeight: 900, fontSize: 20, lineHeight: 1 }}>𝕏</span>
               </a>
               <a 
                 href="https://www.linkedin.com/company/rockpeach/" 
