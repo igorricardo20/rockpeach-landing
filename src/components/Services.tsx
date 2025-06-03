@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
+import { LangContext } from "./Navbar";
 
 const services = [
 	{
@@ -35,7 +36,61 @@ const services = [
 	},
 ];
 
+// Localization dictionary
+const translations = {
+	en: {
+		services: "What we deliver",
+		servicesDesc:
+			"Our expertise covers the full digital product journey, from concept to launch. We go beyond conventional development, offering advanced geospatial intelligence and GIS solutions.",
+		web: "Web Development",
+		webDesc: "Modern, scalable websites and web apps tailored to your business needs.",
+		webExtra:
+			"We use the latest frameworks and best practices to ensure your site is fast, secure, and easy to manage. From landing pages to complex web apps, we deliver robust solutions.",
+		mobile: "Mobile Apps",
+		mobileDesc:
+			"Cross-platform mobile solutions for iOS and Android, built for performance and usability.",
+		mobileExtra:
+			"Our team crafts seamless mobile experiences, leveraging native and cross-platform technologies to reach your users wherever they are.",
+		ux: "UX/UI Design",
+		uxDesc: "User-centered design for delightful, intuitive digital experiences.",
+		uxExtra:
+			"We focus on usability, accessibility, and visual delight, ensuring your product is both beautiful and easy to use.",
+		gis: "Tech Consulting & GIS",
+		gisDesc:
+			"Expert advice on technology strategy, plus geospatial intelligence and Geographic Information Systems (GIS) development.",
+		gisExtra:
+			"We help you make informed technology decisions and unlock the power of location data for smarter business outcomes.",
+	},
+	nl: {
+		services: "Wat wij leveren",
+		servicesDesc:
+			"Onze expertise bestrijkt het volledige digitale traject, van concept tot lancering. We gaan verder dan conventionele ontwikkeling en bieden geavanceerde geo-intelligentie en GIS-oplossingen.",
+		web: "Webontwikkeling",
+		webDesc: "Moderne, schaalbare websites en webapps op maat van uw bedrijf.",
+		webExtra:
+			"We gebruiken de nieuwste frameworks en best practices zodat uw site snel, veilig en eenvoudig te beheren is. Van landingspagina's tot complexe webapps leveren wij robuuste oplossingen.",
+		mobile: "Mobiele apps",
+		mobileDesc:
+			"Cross-platform mobiele oplossingen voor iOS en Android, gebouwd voor prestaties en gebruiksgemak.",
+		mobileExtra:
+			"Ons team ontwikkelt naadloze mobiele ervaringen met native en cross-platform technologieën, zodat u uw gebruikers overal bereikt.",
+		ux: "UX/UI Design",
+		uxDesc: "Gebruikersgerichte ontwerpen voor prettige, intuïtieve digitale ervaringen.",
+		uxExtra:
+			"We focussen op gebruiksvriendelijkheid, toegankelijkheid en visueel plezier, zodat uw product mooi én makkelijk te gebruiken is.",
+		gis: "Tech consulting & GIS",
+		gisDesc:
+			"Advies over technologie-strategie, plus geo-intelligentie en ontwikkeling van Geographic Information Systems (GIS).",
+		gisExtra:
+			"We helpen u slimme technologische keuzes te maken en benutten locatie-data voor betere bedrijfsresultaten.",
+	},
+} as const;
 const Services: React.FC = () => {
+	const { lang } = useContext(LangContext);
+	type Lang = keyof typeof translations;
+	const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
+	const t = translations[safeLang];
+
 	const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
 	// Reveal animation on scroll
@@ -87,12 +142,10 @@ const Services: React.FC = () => {
 			<div className="container mx-auto px-4 md:px-6">
 				<div className="text-center mb-12">
 					<h2 className="text-3xl md:text-4xl font-manrope font-bold mb-4 text-gray-900">
-						What we deliver
+						{t.services}
 					</h2>
 					<p className="text-lg text-gray-700 max-w-2xl mx-auto font-inter">
-						Our expertise covers the full digital product journey, from concept to
-						launch. We go beyond conventional development, offering advanced
-						geospatial intelligence and GIS solutions.
+						{t.servicesDesc}
 					</p>
 				</div>
 				<div className="flex flex-col gap-14 items-center">
@@ -131,20 +184,13 @@ const Services: React.FC = () => {
 											)
 										}
 									>
-										{service.title}
+										{idx === 0 ? t.web : idx === 1 ? t.mobile : idx === 2 ? t.ux : t.gis}
 									</h3>
 									<p className="text-black font-inter text-base md:text-lg mb-1 drop-shadow-none leading-relaxed">
-										{service.description}
+										{idx === 0 ? t.webDesc : idx === 1 ? t.mobileDesc : idx === 2 ? t.uxDesc : t.gisDesc}
 									</p>
 									<p className="text-black font-inter text-sm md:text-base opacity-90 leading-relaxed">
-										{service.title === "Web Development" &&
-											"We use the latest frameworks and best practices to ensure your site is fast, secure, and easy to manage. From landing pages to complex web apps, we deliver robust solutions."}
-										{service.title === "Mobile Apps" &&
-											"Our team crafts seamless mobile experiences, leveraging native and cross-platform technologies to reach your users wherever they are."}
-										{service.title === "UX/UI Design" &&
-											"We focus on usability, accessibility, and visual delight, ensuring your product is both beautiful and easy to use."}
-										{service.title === "Tech Consulting & GIS" &&
-											"We help you make informed technology decisions and unlock the power of location data for smarter business outcomes."}
+										{idx === 0 ? t.webExtra : idx === 1 ? t.mobileExtra : idx === 2 ? t.uxExtra : t.gisExtra}
 									</p>
 								</div>
 								{/* Decorative glass accent for the right 20% - custom for each card */}

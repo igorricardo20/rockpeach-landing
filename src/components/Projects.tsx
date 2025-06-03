@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { projects } from "../data/projects";
+import { LangContext } from "./Navbar";
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,17 +13,92 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Projects: React.FC = () => {
+  const { lang } = useContext(LangContext);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
 
+  // Localization dictionary
+  const translations = {
+    en: {
+      projects: "Our projects",
+      projectsDesc:
+        "We explore new possibilities through modern technologies to create impactful digital experiences.",
+      seeDetails: "See details",
+    },
+    nl: {
+      projects: "Onze projecten",
+      projectsDesc:
+        "We verkennen nieuwe mogelijkheden met moderne technologieën om impactvolle digitale ervaringen te creëren.",
+      seeDetails: "Bekijk details",
+    },
+  } as const;
+  type Lang = keyof typeof translations;
+  const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
+  const t = translations[safeLang] || translations.en;
+
+  const projectTranslations = {
+    en: [
+      {
+        title: "Credit Card Exchange Rates",
+        description:
+          "Currency simulator with interactive charts and visual history for real-time currency tracking.",
+        type: "Mobile & Web App",
+      },
+      {
+        title: "TaskFlow",
+        description:
+          "Project management platform with intuitive kanban and advanced productivity reports.",
+        type: "Web App",
+      },
+      {
+        title: "HealthTrack",
+        description:
+          "Health monitoring app with IoT device integration and personalized data visualization.",
+        type: "Mobile App",
+      },
+      {
+        title: "EcoMarket",
+        description:
+          "Sustainable marketplace with product traceability and rewards system for conscious consumption.",
+        type: "E-commerce",
+      },
+    ],
+    nl: [
+      {
+        title: "Credit Card Wisselkoersen",
+        description:
+          "Valutasimulator met interactieve grafieken en visuele geschiedenis voor realtime valutatracking.",
+        type: "Mobiel & Web App",
+      },
+      {
+        title: "TaskFlow",
+        description:
+          "Projectmanagementplatform met intuïtieve kanban en geavanceerde productiviteitsrapporten.",
+        type: "Web App",
+      },
+      {
+        title: "HealthTrack",
+        description:
+          "Gezondheidsmonitoring-app met IoT-integratie en gepersonaliseerde datavisualisatie.",
+        type: "Mobiele App",
+      },
+      {
+        title: "EcoMarket",
+        description:
+          "Duurzaam platform met producttraceerbaarheid en beloningssysteem voor bewust consumeren.",
+        type: "E-commerce",
+      },
+    ],
+  } as const;
+
   return (
-    <section 
-      id="projects" 
+    <section
+      id="projects"
       className="py-20 lg:py-32"
       style={{
-        background: "linear-gradient(to bottom, #f9fafb, #f3f4f6)"
+        background: "linear-gradient(to bottom, #f9fafb, #f3f4f6)",
       }}
     >
       <div className="container mx-auto px-4 md:px-6">
@@ -34,10 +110,10 @@ const Projects: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-6 text-gray-900">
-            Our projects
+            {t.projects}
           </h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto font-inter">
-            We explore new possibilities through modern technologies to create impactful digital experiences.
+            {t.projectsDesc}
           </p>
         </motion.div>
 
@@ -64,12 +140,12 @@ const Projects: React.FC = () => {
               }}
               pagination={{ clickable: true }}
               navigation={{
-                prevEl: '.swiper-button-prev-custom',
-                nextEl: '.swiper-button-next-custom',
+                prevEl: ".swiper-button-prev-custom",
+                nextEl: ".swiper-button-next-custom",
               }}
               className="py-10"
             >
-              {projects.map((project) => (
+              {projects.map((project, idx) => (
                 <SwiperSlide key={project.id} className="px-4 py-6">
                   <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
                     <div className="relative overflow-hidden">
@@ -79,21 +155,21 @@ const Projects: React.FC = () => {
                         className="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105"
                       />
                       <div className="absolute top-4 right-4 bg-white bg-opacity-90 py-1 px-3 rounded-full text-xs font-medium text-gray-800 backdrop-blur-sm">
-                        {project.type}
+                        {projectTranslations[safeLang][idx].type}
                       </div>
                     </div>
                     <div className="p-6">
                       <h3 className="text-xl font-manrope font-bold text-gray-900 mb-2">
-                        {project.title}
+                        {projectTranslations[safeLang][idx].title}
                       </h3>
                       <p className="text-gray-700 mb-4 font-inter">
-                        {project.description}
+                        {projectTranslations[safeLang][idx].description}
                       </p>
                       <a
                         href="#"
                         className="inline-flex items-center text-primary-600 font-medium hover:underline font-inter"
                       >
-                        See details
+                        {t.seeDetails}
                         <ExternalLink size={16} className="ml-2" />
                       </a>
                     </div>
@@ -101,7 +177,7 @@ const Projects: React.FC = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            
+
             <div className="flex justify-center items-center mt-6 space-x-4">
               <button
                 className="swiper-button-prev-custom bg-white rounded-full p-3 shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-opacity-50"

@@ -1,13 +1,62 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Send, Phone, Mail } from "lucide-react";
+import { LangContext } from "./Navbar";
 
 const Contact: React.FC = () => {
+  const { lang } = useContext(LangContext);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  // Localization dictionary
+  const translations = {
+    en: {
+      contact: "Let's talk?",
+      contactDesc: "We are ready to turn your ideas into exceptional digital solutions.",
+      getInTouch: "Get in touch",
+      getInTouchDesc: "We want to hear about your project and how we can help make it a reality.",
+      phone: "Phone",
+      email: "Email",
+      name: "Name",
+      emailLabel: "Email",
+      subject: "Subject",
+      message: "Message",
+      send: "Send message",
+      phoneValue: "+31 6 87 34 43 45",
+      address1: "Zijdevlinder 196",
+      address2: "Nijkerk, Netherlands",
+      placeholderName: "Your name",
+      placeholderEmail: "your@email.com",
+      placeholderSubject: "Message subject",
+      placeholderMessage: "Tell us about your project...",
+    },
+    nl: {
+      contact: "Contact opnemen?",
+      contactDesc: "Wij staan klaar om uw ideeën om te zetten in uitzonderlijke digitale oplossingen.",
+      getInTouch: "Neem contact op",
+      getInTouchDesc: "We horen graag over uw project en hoe we kunnen helpen om het te realiseren.",
+      phone: "Telefoon",
+      email: "E-mail",
+      name: "Naam",
+      emailLabel: "E-mail",
+      subject: "Onderwerp",
+      message: "Bericht",
+      send: "Verstuur bericht",
+      phoneValue: "+31 6 87 34 43 45",
+      address1: "Zijdevlinder 196",
+      address2: "Nijkerk, Nederland",
+      placeholderName: "Uw naam",
+      placeholderEmail: "uw@email.com",
+      placeholderSubject: "Onderwerp van het bericht",
+      placeholderMessage: "Vertel ons over uw project...",
+    },
+  } as const;
+  type Lang = keyof typeof translations;
+  const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
+  const t = translations[safeLang] || translations.en;
 
   return (
     <section 
@@ -26,10 +75,10 @@ const Contact: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-6 text-gray-900">
-            Let's talk?
+            {t.contact}
           </h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto font-inter">
-            We are ready to turn your ideas into exceptional digital solutions.
+            {t.contactDesc}
           </p>
         </motion.div>
 
@@ -43,10 +92,10 @@ const Contact: React.FC = () => {
             >
               <div>
                 <h3 className="text-xl font-manrope font-bold text-gray-900 mb-4">
-                  Get in touch
+                  {t.getInTouch}
                 </h3>
                 <p className="text-gray-700 mb-6 font-inter">
-                  We want to hear about your project and how we can help make it a reality.
+                  {t.getInTouchDesc}
                 </p>
               </div>
 
@@ -56,8 +105,8 @@ const Contact: React.FC = () => {
                     <Phone size={20} className="text-primary-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1 font-inter">Phone</h4>
-                    <p className="text-gray-700 text-sm font-inter">+31 6 87 34 43 45</p>
+                    <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.phone}</h4>
+                    <p className="text-gray-700 text-sm font-inter">{t.phoneValue}</p>
                   </div>
                 </div>
 
@@ -66,7 +115,7 @@ const Contact: React.FC = () => {
                     <Mail size={20} className="text-primary-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-1 font-inter">Email</h4>
+                    <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.email}</h4>
                     <p className="text-gray-700 text-sm font-inter">contact@rockpeach.io</p>
                   </div>
                 </div>
@@ -84,49 +133,49 @@ const Contact: React.FC = () => {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
-                        Name
+                        {t.name}
                       </label>
                       <input
                         type="text"
                         id="name"
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
-                        placeholder="Your name"
+                        placeholder={t.placeholderName}
                       />
                     </div>
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
-                        Email
+                        {t.emailLabel}
                       </label>
                       <input
                         type="email"
                         id="email"
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
-                        placeholder="your@email.com"
+                        placeholder={t.placeholderEmail}
                       />
                     </div>
                   </div>
                   
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
-                      Subject
+                      {t.subject}
                     </label>
                     <input
                       type="text"
                       id="subject"
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
-                      placeholder="Message subject"
+                      placeholder={t.placeholderSubject}
                     />
                   </div>
                   
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
-                      Message
+                      {t.message}
                     </label>
                     <textarea
                       id="message"
                       rows={5}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
-                      placeholder="Tell us about your project..."
+                      placeholder={t.placeholderMessage}
                     ></textarea>
                   </div>
                   
@@ -136,7 +185,7 @@ const Contact: React.FC = () => {
                     className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
                     type="submit"
                   >
-                    Send message
+                    {t.send}
                     <Send size={18} className="ml-2" />
                   </motion.button>
                 </form>

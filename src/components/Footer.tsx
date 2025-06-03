@@ -1,7 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ChevronRight, Instagram, Linkedin, Github as GitHub } from "lucide-react";
+import { LangContext } from "./Navbar";
+
+// Localization dictionary
+const translations = {
+  en: {
+    company: "Company",
+    about: "About us",
+    projects: "Projects",
+    contact: "Contact",
+    services: "Services",
+    web: "Web Development",
+    mobile: "Mobile Apps",
+    ux: "UX/UI Design",
+    tech: "Tech Consulting",
+    address1: "Zijdevlinder 196",
+    address2: "Nijkerk, Netherlands",
+    phone: "+31 6 87 34 43 45",
+    email: "contact@rockpeach.io",
+    privacy: "Privacy Policy",
+    terms: "Terms of Use",
+    rights: (year: number) => `© ${year} Rockpeach. All rights reserved.`,
+  },
+  nl: {
+    company: "Bedrijf",
+    about: "Over ons",
+    projects: "Projecten",
+    contact: "Contact",
+    services: "Diensten",
+    web: "Webontwikkeling",
+    mobile: "Mobiele apps",
+    ux: "UX/UI Design",
+    tech: "Tech consulting",
+    address1: "Zijdevlinder 196",
+    address2: "Nijkerk, Nederland",
+    phone: "+31 6 87 34 43 45",
+    email: "contact@rockpeach.io",
+    privacy: "Privacybeleid",
+    terms: "Gebruiksvoorwaarden",
+    rights: (year: number) => `© ${year} Rockpeach. Alle rechten voorbehouden.`,
+  },
+} as const;
+type Lang = keyof typeof translations;
 
 const Footer: React.FC = () => {
+  const { lang } = useContext(LangContext);
+  const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
+  const t = translations[safeLang];
+
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -54,66 +100,66 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-manrope font-bold mb-6">Company</h3>
+            <h3 className="text-lg font-manrope font-bold mb-6">{t.company}</h3>
             <ul className="space-y-4">
               <li>
                 <a href="#about" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  About us
+                  {t.about}
                 </a>
               </li>
               <li>
                 <a href="#projects" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  Projects
+                  {t.projects}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  Contact
+                  {t.contact}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-manrope font-bold mb-6">Services</h3>
+            <h3 className="text-lg font-manrope font-bold mb-6">{t.services}</h3>
             <ul className="space-y-4">
               <li>
                 <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  Web Development
+                  {t.web}
                 </a>
               </li>
               <li>
                 <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  Mobile Apps
+                  {t.mobile}
                 </a>
               </li>
               <li>
                 <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  UX/UI Design
+                  {t.ux}
                 </a>
               </li>
               <li>
                 <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
-                  Tech Consulting
+                  {t.tech}
                 </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-manrope font-bold mb-6">Contact</h3>
+            <h3 className="text-lg font-manrope font-bold mb-6">{t.contact}</h3>
             <address className="not-italic text-gray-400 space-y-4 font-inter">
-              <p>Zijdevlinder 196</p>
-              <p>Nijkerk, Netherlands</p>
-              <p>+31 6 87 34 43 45</p>
-              <p>contact@rockpeach.io</p>
+              <p>{t.address1}</p>
+              <p>{t.address2}</p>
+              <p>{t.phone}</p>
+              <p>{t.email}</p>
             </address>
           </div>
         </div>
@@ -121,14 +167,14 @@ const Footer: React.FC = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-500 text-sm mb-4 md:mb-0 font-inter">
-              &copy; {new Date().getFullYear()} Rockpeach. All rights reserved.
+              {t.rights(new Date().getFullYear())}
             </p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm font-inter">
-                Privacy Policy
+                {t.privacy}
               </a>
               <a href="#" className="text-gray-500 hover:text-white transition-colors text-sm font-inter">
-                Terms of Use
+                {t.terms}
               </a>
             </div>
           </div>

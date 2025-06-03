@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { LangContext } from "./Navbar";
 
 const Hero: React.FC = () => {
+  const { lang } = useContext(LangContext);
+  const translations = {
+    en: {
+      headline1: "We develop software with ",
+      headline2: "agility, beauty and purpose",
+      sub: "Transforming ideas into functional, beautiful digital products ready to scale.",
+      cta: "Let's talk",
+      learn: "Learn more",
+    },
+    nl: {
+      headline1: "Wij ontwikkelen software met ",
+      headline2: "snelheid, schoonheid en doel",
+      sub: "We vertalen ideeën naar functionele, mooie digitale producten die klaar zijn om te groeien.",
+      cta: "Contact opnemen",
+      learn: "Meer weten",
+    },
+  } as const;
+  type Lang = keyof typeof translations;
+  const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
+  const t = translations[safeLang];
+
   const scrollToAbout = () => {
     const aboutSection = document.getElementById("about");
     if (aboutSection) {
@@ -23,13 +45,13 @@ const Hero: React.FC = () => {
             className="text-center lg:text-left flex flex-col items-center lg:items-start"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-manrope font-bold text-gray-900 leading-tight mb-6">
-              We develop software with{" "}
+              {t.headline1}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">
-                agility, beauty and purpose
+                {t.headline2}
               </span>
             </h1>
             <p className="text-gray-700 text-lg md:text-xl mb-8 font-inter leading-relaxed max-w-xl mx-auto lg:mx-0">
-              Transforming ideas into functional, beautiful digital products ready to scale.
+              {t.sub}
             </p>
             <motion.a
               href="#contact"
@@ -37,7 +59,7 @@ const Hero: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               className="inline-block bg-gradient-to-r from-primary-600 to-accent-600 text-white font-inter font-semibold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Let's talk
+              {t.cta}
             </motion.a>
           </motion.div>
           
@@ -75,7 +97,7 @@ const Hero: React.FC = () => {
           onClick={scrollToAbout}
           className="flex flex-col items-center space-y-2 opacity-80 hover:opacity-100 transition-opacity group"
         >
-          <span className="text-sm font-inter">Learn more</span>
+          <span className="text-sm font-inter">{t.learn}</span>
           <motion.div
             animate={{ y: [0, 5, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
