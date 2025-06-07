@@ -15,8 +15,8 @@ const Hero: React.FC = () => {
     },
     nl: {
       headline1: "Wij ontwikkelen software met ",
-      headline2: "snelheid, schoonheid en doel",
-      sub: "We vertalen ideeën naar functionele, mooie digitale producten die klaar zijn om te groeien.",
+      headline2: "snelheid, schoonheid en doelgerichtheid",
+      sub: "We vertalen ideeën naar functionele, prachtige digitale producten die klaar zijn om te groeien.",
       cta: "Contact opnemen",
       learn: "Meer weten",
     },
