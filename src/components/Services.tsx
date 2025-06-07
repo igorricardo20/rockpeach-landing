@@ -81,8 +81,8 @@ const translations = {
 		gis: "Tech consulting & GIS",
 		gisDesc:
 			"Advies over technologie-strategie, plus geo-intelligentie en ontwikkeling van Geographic Information Systems (GIS).",
-		gisExtra:
-			"We helpen u slimme technologische keuzes te maken en benutten locatie-data voor betere bedrijfsresultaten.",
+                gisExtra:
+                        "We helpen u slimme technologische keuzes te maken en de kracht van locatiedata te benutten voor betere bedrijfsresultaten.",
 	},
 } as const;
 const Services: React.FC = () => {

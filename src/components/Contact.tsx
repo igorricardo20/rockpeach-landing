@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
       contact: "Contact opnemen?",
       contactDesc: "Wij staan klaar om uw ideeën om te zetten in uitzonderlijke digitale oplossingen.",
       getInTouch: "Neem contact op",
-      getInTouchDesc: "We horen graag over uw project en hoe we kunnen helpen om het te realiseren.",
+      getInTouchDesc: "We horen graag over uw project en hoe we kunnen helpen het te realiseren.",
       phone: "Telefoon",
       email: "E-mail",
       name: "Naam",
