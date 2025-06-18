@@ -156,10 +156,9 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-manrope font-bold mb-6">{t.contact}</h3>
             <address className="not-italic text-gray-400 space-y-4 font-inter">
-              <p>{t.address1}</p>
-              <p>{t.address2}</p>
-              <p>{t.phone}</p>
               <p>{t.email}</p>
+              <p>{t.phone}</p>
+              <p>{t.address2}</p>
             </address>
           </div>
         </div>

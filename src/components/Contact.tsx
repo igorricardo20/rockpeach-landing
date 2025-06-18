@@ -58,6 +58,48 @@ const Contact: React.FC = () => {
   const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
   const t = translations[safeLang] || translations.en;
 
+  const [form, setForm] = React.useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [status, setStatus] = React.useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [error, setError] = React.useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('sending');
+    setError(null);
+    try {
+      // Replace with your backend endpoint or use a service like Formspree/Resend/EmailJS
+      const res = await fetch('https://formspree.io/f/xpwrlllo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message
+        })
+      });
+      if (res.ok) {
+        setStatus('success');
+        setForm({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+        setError('Failed to send. Please try again.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setError('Failed to send. Please try again.');
+    }
+  };
+
   return (
     <section 
       id="contact" 
@@ -129,7 +171,7 @@ const Contact: React.FC = () => {
               className="lg:col-span-3"
             >
               <div className="bg-white rounded-2xl shadow-lg p-8">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
@@ -138,8 +180,12 @@ const Contact: React.FC = () => {
                       <input
                         type="text"
                         id="name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
                         placeholder={t.placeholderName}
+                        required
                       />
                     </div>
                     <div>
@@ -149,12 +195,15 @@ const Contact: React.FC = () => {
                       <input
                         type="email"
                         id="email"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
                         className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
                         placeholder={t.placeholderEmail}
+                        required
                       />
                     </div>
                   </div>
-                  
                   <div>
                     <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
                       {t.subject}
@@ -162,30 +211,43 @@ const Contact: React.FC = () => {
                     <input
                       type="text"
                       id="subject"
+                      name="subject"
+                      value={form.subject}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
                       placeholder={t.placeholderSubject}
+                      required
                     />
                   </div>
-                  
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
                       {t.message}
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={5}
+                      value={form.message}
+                      onChange={handleChange}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring focus:ring-primary-200 focus:ring-opacity-50 font-inter"
                       placeholder={t.placeholderMessage}
+                      required
                     ></textarea>
                   </div>
-                  
+                  {status === 'success' && (
+                    <div className="text-green-600 font-inter text-sm">{lang === 'nl' ? 'Bericht verzonden! We nemen snel contact op.' : 'Message sent! We will get back to you soon.'}</div>
+                  )}
+                  {status === 'error' && (
+                    <div className="text-red-600 font-inter text-sm">{error}</div>
+                  )}
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
+                    className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-60"
                     type="submit"
+                    disabled={status === 'sending'}
                   >
-                    {t.send}
+                    {status === 'sending' ? (lang === 'nl' ? 'Versturen...' : 'Sending...') : t.send}
                     <Send size={18} className="ml-2" />
                   </motion.button>
                 </form>

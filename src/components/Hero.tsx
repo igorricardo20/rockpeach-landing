@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
                 className="mx-auto"
               >
                 <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=4140&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                  src="/hero1.png" 
                   alt="Digital Transformation" 
                   className="rounded-2xl shadow-2xl max-w-full" 
                 />

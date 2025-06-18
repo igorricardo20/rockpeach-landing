@@ -80,34 +80,43 @@ const About: React.FC = () => {
                   {t.aboutText2}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-8 items-center justify-center">
-                <div className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm flex-1 min-w-[300px] min-h-[110px] w-[300px] sm:min-w-[180px] sm:w-[200px] text-center">
-                  <div className="mr-0 sm:mr-4 mb-2 sm:mb-0 text-primary-600 font-manrope font-bold text-2xl">
-                    16+
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-8 items-center justify-center lg:justify-start lg:gap-6">
+                {[
+                  {
+                    color: "text-primary-600",
+                    value: "16+",
+                    title: t.stat1,
+                    desc: t.stat1desc,
+                  },
+                  {
+                    color: "text-secondary-600",
+                    value: "100%",
+                    title: t.stat2,
+                    desc: t.stat2desc,
+                  },
+                  {
+                    color: "text-accent-600",
+                    value: "3+",
+                    title: t.stat3,
+                    desc: t.stat3desc,
+                  },
+                ].map((stat, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm min-w-[260px] max-w-[360px] w-full lg:w-[260px] text-center h-[120px]"
+                    style={{ flex: '0 0 auto' }}
+                  >
+                    <div
+                      className={`mr-0 sm:mr-4 mb-2 sm:mb-0 font-manrope font-bold text-2xl ${stat.color}`}
+                    >
+                      {stat.value}
+                    </div>
+                    <div className="font-inter text-center">
+                      <h3 className="font-medium">{stat.title}</h3>
+                      <p className="text-sm text-gray-600">{stat.desc}</p>
+                    </div>
                   </div>
-                  <div className="font-inter text-center">
-                    <h3 className="font-medium">{t.stat1}</h3>
-                    <p className="text-sm text-gray-600">{t.stat1desc}</p>
-                  </div>
-                </div>
-                <div className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm flex-1 min-w-[300px] min-h-[110px] w-[300px] sm:min-w-[180px] sm:w-[200px] text-center">
-                  <div className="mr-0 sm:mr-4 mb-2 sm:mb-0 text-secondary-600 font-manrope font-bold text-2xl">
-                    100%
-                  </div>
-                  <div className="font-inter text-center">
-                    <h3 className="font-medium">{t.stat2}</h3>
-                    <p className="text-sm text-gray-600">{t.stat2desc}</p>
-                  </div>
-                </div>
-                <div className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm flex-1 min-w-[300px] min-h-[110px] w-[300px] sm:min-w-[180px] sm:w-[200px] text-center">
-                  <div className="mr-0 sm:mr-4 mb-2 sm:mb-0 text-accent-600 font-manrope font-bold text-2xl">
-                    3+
-                  </div>
-                  <div className="font-inter text-center">
-                    <h3 className="font-medium">{t.stat3}</h3>
-                    <p className="text-sm text-gray-600">{t.stat3desc}</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="lg:col-span-2 order-1 lg:order-2 flex justify-center">
@@ -117,9 +126,9 @@ const About: React.FC = () => {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="relative"
               >
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl w-56 h-40 sm:w-full sm:h-auto">
+                <div className="relative overflow-hidden rounded-3xl shadow-2xl w-full max-w-xs sm:w-full sm:h-auto md:max-w-full md:w-full md:h-auto h-52 xs:h-64 sm:h-40 lg:h-auto">
                   <img
-                    src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?q=80&w=4147&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src="/colleagues.png"
                     alt="Our team working"
                     className="w-full h-full object-cover"
                   />
