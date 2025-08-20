@@ -28,7 +28,7 @@ const About: React.FC = () => {
       aboutText2:
         "We combine speed, reliability, and a keen eye for design. We turn concepts into products that drive success.",
       stat1: "Prototypes Shipped",
-      stat1desc: "Apps, MVPs & experiments",
+      stat1desc: "POCs, MVPs",
       stat2: "Commitment",
       stat2desc: "Attention to every detail",
       stat3: "Countries Served",
@@ -111,7 +111,7 @@ const About: React.FC = () => {
                   {t.aboutText2}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8 items-center justify-center lg:justify-start lg:gap-6 w-full max-w-5xl">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 mt-8 items-center justify-center lg:justify-start lg:gap-2 w-full max-w-5xl">
                 {[
                   {
                     color: "text-primary-600",
@@ -134,14 +134,12 @@ const About: React.FC = () => {
                 ].map((stat, idx) => (
                   <div
                     key={idx}
-                    className={
-                      `bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm min-w-[260px] max-w-[360px] w-full lg:w-[260px] text-center h-[120px] ` +
-                      (idx === 1 ? 'ml-4' : idx === 2 ? 'ml-8' : '')
-                    }
-                    style={{ flex: '0 0 auto' }}
+                    className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm max-w-[360px] w-full sm:w-[32%] text-center h-[120px]"
+                    style={{ flex: '1 1 0%' }}
                   >
                     <div
-                      className={`mr-0 sm:mr-4 mb-2 sm:mb-0 font-manrope font-bold text-2xl ${stat.color}`}
+                      className={`mr-0 sm:mr-4 mb-2 sm:mb-0 font-manrope font-bold ${stat.color}`}
+                      style={{ fontSize: 'clamp(0.95rem, 3vw, 1.4rem)' }}
                     >
                       {stat.value}
                     </div>
