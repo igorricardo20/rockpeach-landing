@@ -59,7 +59,13 @@ const Process: React.FC = () => {
   const t = translations[safeLang] || translations.en;
 
   return (
-    <section id="process" className="py-20 lg:py-32">
+    <section
+      id="process"
+      className="py-20 lg:py-32"
+      style={{
+        background: "linear-gradient(135deg, rgba(0,147,237,0.05) 0%, rgba(213,95,127,0.05) 100%)"
+      }}
+    >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           ref={ref}
@@ -90,7 +96,14 @@ const Process: React.FC = () => {
               <motion.div
                 key={process.id}
                 variants={item}
-                className="bg-white rounded-2xl p-8 shadow-md hover:shadow-lg transition-shadow border border-gray-100"
+                className="rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow border border-white/30 bg-white/30 backdrop-blur-lg"
+                style={{
+                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  background: 'rgba(255,255,255,0.25)',
+                  backdropFilter: 'blur(16px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+                }}
               >
                 <div 
                   className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br"

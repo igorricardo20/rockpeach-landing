@@ -1,3 +1,10 @@
+@keyframes diagonal-move {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(40px); }
+}
+.animate-diagonal-move {
+	animation: diagonal-move 3s ease-in-out infinite;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

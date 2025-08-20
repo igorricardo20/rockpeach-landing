@@ -29,10 +29,10 @@ const Navbar: React.FC = () => {
     en: {
       about: "About",
       projects: "Projects",
-      process: "How we work",
+      process: "Process",
       services: "Services",
       contact: "Let's talk",
-      nav: ["About", "Projects", "How we work", "Services"],
+      nav: ["About", "Projects", "Process", "Services"],
     },
     nl: {
       about: "Over ons",
@@ -75,10 +75,10 @@ const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { name: translations[safeLang].nav[0], href: "#about" },
-    { name: translations[safeLang].nav[1], href: "#projects" },
     { name: translations[safeLang].nav[2], href: "#process" },
     { name: translations[safeLang].nav[3], href: "#services" },
+    { name: translations[safeLang].nav[0], href: "#about" },
+    // { name: translations[safeLang].nav[1], href: "#projects" },
   ];
 
   return (

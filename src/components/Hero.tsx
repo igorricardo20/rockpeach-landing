@@ -33,10 +33,50 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section 
+    <section
       className="relative min-h-screen flex items-center overflow-hidden bg-white"
     >
-      <div className="container mx-auto px-4 md:px-6 relative z-10 py-20">
+      {/* Animated Diagonal White Container */}
+      <motion.div
+        className="hidden lg:block absolute top-0 right-0 h-full w-1/2 z-10"
+        aria-hidden="true"
+        initial={{
+          clipPath: 'polygon(100% 0, 100% 0, 100% 100%, 100% 100%)',
+        }}
+        animate={{
+          clipPath: 'polygon(0 0, 100% 0, 100% 100%, 10% 100%)',
+        }}
+        transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+        style={{
+          backgroundImage: `url('/hero2.png')`,
+          backgroundPosition: 'right center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      />
+      {/* Animated Diagonal Blue Line (appears after white, animates left to right) */}
+      <motion.div
+        className="hidden lg:block pointer-events-none absolute top-0 right-0 h-full w-1/2 z-20"
+        aria-hidden="true"
+        initial={{
+          clipPath: 'polygon(0 0, 0 0, 10% 100%, 10% 100%)',
+        }}
+        animate={{
+          clipPath: 'polygon(0 0, 3% 0, 13% 100%, 10% 100%)',
+        }}
+        transition={{ duration: 1, ease: [0.77, 0, 0.175, 1], delay: 1.2 }}
+      >
+          <div
+            className="absolute right-0 top-0 h-full w-full"
+            style={{
+              opacity: 0.35,
+              background: 'linear-gradient(90deg, #0077ff 0%, #ff0055 100%)',
+              boxShadow: '0 0 12px 2px rgba(0,119,255,0.08)',
+            }}
+          ></div>
+      </motion.div>
+
+  <div className="container mx-auto px-4 md:px-6 relative z-30 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -62,27 +102,8 @@ const Hero: React.FC = () => {
               {t.cta}
             </motion.a>
           </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block"
-          >
-            <div className="relative">
-              <motion.div 
-                animate={{ y: [0, -20, 0] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                className="mx-auto"
-              >
-                <img 
-                  src="/hero1.png" 
-                  alt="Digital Transformation" 
-                  className="rounded-2xl shadow-2xl max-w-full" 
-                />
-              </motion.div>
-            </div>
-          </motion.div>
+          {/* The right column is intentionally left empty to allow the background image to show through */}
+          <div className="hidden lg:block" />
         </div>
       </div>
 
@@ -91,9 +112,11 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-20 sm:bottom-8 left-0 right-0 mx-auto flex justify-center w-full"
+        className="absolute bottom-20 sm:bottom-8 left-0 right-0 mx-auto flex justify-center w-full
+          lg:left-[25%] lg:right-auto lg:w-auto lg:translate-x-[-50%] lg:justify-center"
+        style={{ maxWidth: 'none' }}
       >
-        <button 
+        <button
           onClick={scrollToAbout}
           className="flex flex-col items-center space-y-2 opacity-80 hover:opacity-100 transition-opacity group"
         >
