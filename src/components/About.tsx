@@ -57,22 +57,53 @@ const About: React.FC = () => {
   const t = translations[safeLang];
 
   return (
-    <section id="about" className="py-20 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+    <section
+      id="about"
+      className="py-20 lg:py-32 overflow-hidden relative"
+      style={{
+        background: "linear-gradient(135deg, rgba(0,147,237,0.05) 0%, rgba(213,95,127,0.05) 100%)"
+      }}
+    >
+      {/* Diagonal image background on the left, like Hero but inverted */}
+        {/* Diagonal image for desktop, full image for mobile */}
+    {/* Hide image on mobile */}
+        <motion.div
+          className="hidden lg:block absolute top-0 left-0 h-full w-[47%] z-10"
+          aria-hidden="true"
+          initial={{
+            clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+          }}
+          animate={inView ? {
+            clipPath: 'polygon(0 0, 96% 0, 100% 100%, 0 100%)',
+          } : {
+            clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)',
+          }}
+          transition={{ duration: 1.2, ease: [0.77, 0, 0.175, 1] }}
+          style={{
+            backgroundImage: `url('/colleagues.png')`,
+            backgroundPosition: 'left center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            clipPath: 'polygon(0 0, 96% 0, 100% 100%, 0 100%)',
+          }}
+        />
+  {/* Blue accent line removed */}
+  <div className="container mx-auto px-0 md:px-0 relative z-30 max-w-none">
         <motion.div
           ref={ref}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={variants}
           transition={{ duration: 0.8 }}
-          className="relative"
         >
           <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-3 order-2 lg:order-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+            {/* The left column is intentionally left empty to allow the background image to show through */}
+            <div className="hidden lg:block lg:col-span-2 order-1 lg:order-1" />
+            <div className="lg:col-span-3 order-2 lg:order-2 flex flex-col justify-between h-full items-center lg:items-start text-center lg:text-left w-full mx-auto max-w-5xl px-2 sm:px-4 md:px-8 lg:pl-16 xl:pl-24">
               <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-6 text-gray-900">
                 {t.about}
               </h2>
-              <div className="prose prose-lg max-w-none px-2 sm:px-0">
+              <div className="prose prose-lg w-full px-2 sm:px-0 mx-auto flex-1 flex flex-col justify-center max-w-5xl">
                 <p className="text-lg leading-relaxed text-gray-700 mb-6 font-inter">
                   {t.aboutText1}
                 </p>
@@ -80,7 +111,7 @@ const About: React.FC = () => {
                   {t.aboutText2}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row flex-wrap gap-4 mt-8 items-center justify-center lg:justify-start lg:gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 mt-8 items-center justify-center lg:justify-start lg:gap-6 w-full max-w-5xl">
                 {[
                   {
                     color: "text-primary-600",
@@ -103,7 +134,10 @@ const About: React.FC = () => {
                 ].map((stat, idx) => (
                   <div
                     key={idx}
-                    className="bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm min-w-[260px] max-w-[360px] w-full lg:w-[260px] text-center h-[120px]"
+                    className={
+                      `bg-card-gradient border border-gray-100 rounded-xl px-6 py-4 flex flex-col sm:flex-row items-center justify-center shadow-sm min-w-[260px] max-w-[360px] w-full lg:w-[260px] text-center h-[120px] ` +
+                      (idx === 1 ? 'ml-4' : idx === 2 ? 'ml-8' : '')
+                    }
                     style={{ flex: '0 0 auto' }}
                   >
                     <div
@@ -119,30 +153,8 @@ const About: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="lg:col-span-2 order-1 lg:order-2 flex justify-center">
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="relative"
-              >
-                <div className="relative overflow-hidden rounded-3xl shadow-2xl w-full max-w-xs sm:w-full sm:h-auto md:max-w-full md:w-full md:h-auto h-52 xs:h-64 sm:h-40 lg:h-auto">
-                  <img
-                    src="/colleagues.png"
-                    alt="Our team working"
-                    className="w-full h-full object-cover"
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.3), rgba(0,0,0,0))",
-                    }}
-                  ></div>
-                </div>
-                {/* Removed floating circles for a more professional look */}
-              </motion.div>
-            </div>
+            {/* The right column is intentionally left empty to allow the background image to show through */}
+            <div className="hidden lg:block lg:col-span-2 order-1 lg:order-2" />
           </div>
         </motion.div>
       </div>

@@ -103,10 +103,7 @@ const Contact: React.FC = () => {
   return (
     <section 
       id="contact" 
-      className="py-20 lg:py-32 relative overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, rgba(0,147,237,0.05) 0%, rgba(213,95,127,0.05) 100%)"
-      }}
+      className="py-20 lg:py-32 relative overflow-hidden bg-white"
     >
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.div
@@ -130,7 +127,8 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, x: -30 }}
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-2 space-y-8 mb-8 px-2 sm:mb-0"
+              className="lg:col-span-2 flex flex-col justify-center h-full space-y-8 mb-8 px-2 sm:mb-0 lg:pr-8 xl:pr-16"
+              style={{ minHeight: '100%' }}
             >
               <div>
                 <h3 className="text-xl font-manrope font-bold text-gray-900 mb-4">
@@ -170,7 +168,18 @@ const Contact: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="lg:col-span-3"
             >
-              <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div
+                className="rounded-3xl shadow-2xl p-8 border border-white/40 bg-white/40 backdrop-blur-2xl relative overflow-hidden"
+                style={{
+                  background: 'linear-gradient(120deg, rgba(0,147,237,0.10) 0%, rgba(213,95,127,0.10) 100%)',
+                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)',
+                  border: '1.5px solid rgba(255,255,255,0.25)',
+                  backdropFilter: 'blur(24px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                }}
+              >
+                {/* Decorative inner shadow for depth */}
+                <div className="pointer-events-none absolute inset-0 rounded-3xl" style={{boxShadow: 'inset 0 2px 24px 0 rgba(0,0,0,0.07)'}} />
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>

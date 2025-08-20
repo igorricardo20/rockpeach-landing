@@ -25,10 +25,10 @@ const Hero: React.FC = () => {
   const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
   const t = translations[safeLang];
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
+  const scrollToProcess = () => {
+    const processSection = document.getElementById("process");
+    if (processSection) {
+      processSection.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -76,7 +76,7 @@ const Hero: React.FC = () => {
           ></div>
       </motion.div>
 
-  <div className="container mx-auto px-4 md:px-6 relative z-30 py-20">
+  <div className="container mx-auto px-1 md:px-2 lg:pl-0 xl:pl-0 relative z-30 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -117,7 +117,7 @@ const Hero: React.FC = () => {
         style={{ maxWidth: 'none' }}
       >
         <button
-          onClick={scrollToAbout}
+          onClick={scrollToProcess}
           className="flex flex-col items-center space-y-2 opacity-80 hover:opacity-100 transition-opacity group"
         >
           <span className="text-sm font-inter">{t.learn}</span>
