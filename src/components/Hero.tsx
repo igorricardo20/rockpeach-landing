@@ -54,27 +54,6 @@ const Hero: React.FC = () => {
           backgroundSize: 'cover',
         }}
       />
-      {/* Animated Diagonal Blue Line (appears after white, animates left to right) */}
-      <motion.div
-        className="hidden lg:block pointer-events-none absolute top-0 right-0 h-full w-1/2 z-20"
-        aria-hidden="true"
-        initial={{
-          clipPath: 'polygon(0 0, 0 0, 10% 100%, 10% 100%)',
-        }}
-        animate={{
-          clipPath: 'polygon(0 0, 3% 0, 13% 100%, 10% 100%)',
-        }}
-        transition={{ duration: 1, ease: [0.77, 0, 0.175, 1], delay: 1.2 }}
-      >
-          <div
-            className="absolute right-0 top-0 h-full w-full"
-            style={{
-              opacity: 0.35,
-              background: 'linear-gradient(90deg, #0077ff 0%, #ff0055 100%)',
-              boxShadow: '0 0 12px 2px rgba(0,119,255,0.08)',
-            }}
-          ></div>
-      </motion.div>
 
   <div className="container mx-auto px-1 md:px-2 lg:pl-0 xl:pl-0 relative z-30 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
