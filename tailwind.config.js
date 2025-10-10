@@ -2,6 +2,15 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '6rem',
+      },
+    },
     extend: {
       fontFamily: {
         manrope: ['Manrope', 'sans-serif'],
@@ -59,6 +68,13 @@ export default {
           '50%': { transform: 'translateY(-20px)' },
         },
       },
+      boxShadow: {
+        elevated: '0 8px 30px rgba(2,6,23,0.08)',
+        'soft-lg': '0 12px 40px rgba(2,6,23,0.06)',
+      },
+      transitionTimingFunction: {
+        'in-expo': 'cubic-bezier(0.77, 0, 0.175, 1)'
+      }
     },
   },
   plugins: [],

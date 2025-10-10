@@ -1,5 +1,5 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
-import { Menu, X, Globe } from "lucide-react";
+import React, { useState, createContext, useContext } from "react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const LangContext = createContext<{ lang: string; setLang: (l: string) => void }>({ lang: 'en', setLang: () => {} });
@@ -10,17 +10,9 @@ const Navbar: React.FC = () => {
   const setLang = context?.setLang || (() => {});
 
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Navbar is floating; no scroll-based style changes needed anymore
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -31,7 +23,7 @@ const Navbar: React.FC = () => {
       projects: "Projects",
       process: "Process",
       services: "Services",
-      contact: "Let's talk",
+      contact: "Contact",
       nav: ["About", "Projects", "Process", "Services"],
     },
     nl: {
@@ -83,73 +75,30 @@ const Navbar: React.FC = () => {
 
   return (
     <LangContext.Provider value={{ lang, setLang }}>
-      <nav 
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled 
-            ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-md py-3" 
-            : "bg-white py-5"
-        }`}
-      >
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex justify-between items-center">
-            <a href="#" className="flex items-center h-8 ml-2 md:ml-0" onClick={e => {
+      <nav className="fixed inset-x-6 top-8 z-50 pointer-events-none">
+        {/* Single combined liquid glass container */}
+        <div className="pointer-events-auto mx-auto max-w-4xl">
+          <div className="glass-liquid flex items-center justify-between px-4 md:px-6 h-14 md:h-16">
+            <a href="#" className="flex items-center h-8 md:h-9 pointer-events-auto" onClick={e => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
               setIsOpen(false);
             }}>
               <img 
-                src="/rockpeach-logo.svg" 
+                src="/rockpeach-logo-new.png" 
                 alt="Rockpeach" 
-                className="h-7 md:h-8 w-auto" 
+                className="h-5 md:h-6 w-auto" 
               />
             </a>
 
-            <div className="flex md:hidden items-center">
-              {/* Mobile Language Switcher Dropdown - Minimalistic */}
-              <div className="relative mr-2">
-                <button
-                  onClick={() => setDropdownOpen((open) => !open)}
-                  className="flex items-center space-x-1 bg-white/70 rounded-md px-2 py-1 border border-gray-100 focus:outline-none hover:bg-gray-50 transition-colors shadow-none"
-                  aria-label="Change language"
-                  style={{ boxShadow: 'none' }}
-                >
-                  <Globe size={17} className="text-primary-600" />
-                  <span className="font-inter text-xs font-medium text-primary-600 uppercase">{localLang}</span>
-                  <svg className="w-2.5 h-2.5 ml-0.5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute left-0 mt-1 min-w-24 bg-white border border-gray-100 rounded-md shadow z-50 flex flex-col py-0.5">
-                    {['en', 'nl'].filter(l => l !== localLang).map(l => (
-                      <button
-                        key={l}
-                        onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
-                        className="w-full text-left px-3 py-1 text-xs font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-md transition-colors focus:outline-none border-none shadow-none bg-transparent"
-                        style={{ border: 'none', boxShadow: 'none', background: 'transparent' }}
-                      >
-                        {l === 'en' ? 'EN' : 'NL'}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Mobile nav button */}
-              <button
-                className="md:hidden text-gray-600 focus:outline-none"
-                onClick={toggleMenu}
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center space-x-8">
+            {/* Centered middle nav: absolute center to better align between logo and controls */}
+            <div className="hidden md:flex items-center pointer-events-auto absolute left-1/2 transform -translate-x-1/2 space-x-3 lg:space-x-6">
               {navLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={e => handleNavClick(e, link.href)}
-                  className="font-inter font-medium text-gray-800 transition-colors duration-300 hover:text-primary-600"
+                      className="font-inter font-medium text-gray-800 text-sm whitespace-nowrap transition-colors duration-300 hover:text-primary-600 focus:outline-none focus:shadow-none"
                 >
                   {link.name}
                 </a>
@@ -157,29 +106,31 @@ const Navbar: React.FC = () => {
               <a
                 href="#contact"
                 onClick={e => handleNavClick(e, "#contact")}
-                className="bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="hidden md:inline-flex items-center justify-center contact-cta font-inter text-sm text-slate-900 whitespace-nowrap transition-transform duration-200 transform hover:scale-105 px-2.5 md:px-3 py-1.5 focus:outline-none focus:shadow-none"
+                style={{ minWidth: 0 }}
               >
                 {translations[safeLang].contact}
               </a>
-              {/* Language Switcher */}
-              <div className="ml-6 relative">
+            </div>
+
+            <div className="flex items-center space-x-2 pointer-events-auto">
+              <div className="relative">
                 <button
                   onClick={() => setDropdownOpen((open) => !open)}
-                  className="flex items-center space-x-2 bg-white/80 rounded-lg px-3 py-1 shadow-sm border border-gray-200 focus:outline-none hover:bg-gray-100 transition-colors"
+                  className="flex items-center bg-white/0 rounded-full px-2 py-1 border border-transparent focus:outline-none focus:shadow-none hover:bg-white/6 transition-colors shadow-none"
                   aria-label="Change language"
+                  aria-haspopup="menu"
+                  aria-expanded={dropdownOpen}
                 >
-                  <Globe size={18} className="text-primary-600" />
-                  <span className="font-inter text-sm font-medium text-primary-600 uppercase">{localLang}</span>
-                  <svg className="w-3 h-3 ml-1 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                  <span className="font-inter text-sm font-semibold text-gray-800 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
                 </button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 min-w-32 max-h-20 bg-white/90 border border-gray-100 rounded-xl shadow-xl z-50 backdrop-blur-md flex flex-col justify-center overflow-hidden py-1">
+                  <div className="absolute right-0 mt-2 min-w-32 bg-white/90 border border-gray-100 rounded-xl shadow-xl z-50 backdrop-blur-md flex flex-col justify-center overflow-hidden py-1">
                     {['en', 'nl'].filter(l => l !== localLang).map(l => (
                       <button
                         key={l}
                         onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
-                        className="w-full text-left px-4 py-2 text-sm font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-xl transition-colors focus:outline-none focus:ring-0 bg-transparent border-none shadow-none"
-                        style={{ border: 'none', boxShadow: 'none', background: 'transparent' }}
+                        className="w-full text-left px-4 py-2 text-sm font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-xl transition-colors"
                       >
                         {l === 'en' ? 'English' : 'Nederlands'}
                       </button>
@@ -187,42 +138,70 @@ const Navbar: React.FC = () => {
                   </div>
                 )}
               </div>
+
+              <button
+                className="md:hidden text-gray-600 focus:outline-none focus:shadow-none"
+                onClick={toggleMenu}
+                aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isOpen}
+              >
+                {isOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.18 }}
-              className="md:hidden bg-white shadow-lg"
-            >
-              <div className="container mx-auto px-4 py-6 flex flex-col items-center space-y-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={e => handleNavClick(e, link.href)}
-                    className="font-inter font-medium text-gray-800 py-2 w-full text-center hover:text-primary-600 transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <a
-                  href="#contact"
-                  onClick={e => handleNavClick(e, "#contact")}
-                  className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-inter font-medium py-3 px-6 rounded-lg text-center w-full"
+        {/* Mobile Menu (below floating right card) */}
+        <div className="w-full">
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                className="mt-4 md:hidden"
+                style={{ display: 'flex', justifyContent: 'center', overflow: 'visible' }}
+              >
+                <motion.div
+                  className="mobile-glass w-full max-w-md px-4 py-6 flex flex-col items-center"
+                  initial={{ y: -6, opacity: 0, scale: 0.995 }}
+                  animate={{ y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 28 } }}
+                  exit={{ y: -6, opacity: 0, scale: 0.995, transition: { duration: 0.12 } }}
                 >
-                  {translations[safeLang].contact}
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  {navLinks.map((link, i) => (
+                    <motion.a
+                      key={link.name}
+                      href={link.href}
+                      onClick={e => handleNavClick(e, link.href)}
+                      className="mobile-item font-inter font-medium text-gray-800 w-full hover:text-primary-600 transition-colors duration-200"
+                      initial={{ y: 8, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1, transition: { delay: 0.04 + i * 0.04, duration: 0.22 } }}
+                      exit={{ y: 8, opacity: 0 }}
+                    >
+                      {link.name}
+                    </motion.a>
+                  ))}
+
+                  <motion.a
+                    href="#contact"
+                    onClick={e => handleNavClick(e, "#contact")}
+                    className="mt-2 w-full"
+                    initial={{ y: 12, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1, transition: { delay: 0.06 + navLinks.length * 0.04, duration: 0.26 } }}
+                    exit={{ y: 12, opacity: 0 }}
+                  >
+                    <div className="contact-cta rounded-full w-full text-slate-900 text-center">
+                      <div className="py-3 px-4 font-inter font-medium">
+                        {translations[safeLang].contact}
+                      </div>
+                    </div>
+                  </motion.a>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </nav>
     </LangContext.Provider>
   );

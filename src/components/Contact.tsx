@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
   // Localization dictionary
   const translations = {
     en: {
-      contact: "Let's talk?",
+      contact: "Start your concept for free",
       contactDesc: "We are ready to turn your ideas into exceptional digital solutions.",
       getInTouch: "Get in touch",
       getInTouchDesc: "We want to hear about your project and how we can help make it a reality.",
@@ -34,7 +34,7 @@ const Contact: React.FC = () => {
       placeholderMessage: "Tell us about your project...",
     },
     nl: {
-      contact: "Contact opnemen?",
+      contact: "Start je gratis concept",
       contactDesc: "Wij staan klaar om uw ideeën om te zetten in uitzonderlijke digitale oplossingen.",
       getInTouch: "Neem contact op",
       getInTouchDesc: "We horen graag over uw project en hoe we kunnen helpen het te realiseren.",
@@ -101,12 +101,9 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section 
-      id="contact" 
-      className="py-20 lg:py-32 relative overflow-hidden bg-white"
-    >
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <motion.div
+    <section id="contact" className="relative py-20 lg:py-32 bg-white overflow-hidden min-h-[560px]">
+      <div className="container mx-auto px-4 md:px-6 relative z-30">
+            <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -128,8 +125,7 @@ const Contact: React.FC = () => {
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:col-span-2 flex flex-col justify-center h-full space-y-8 mb-8 px-2 sm:mb-0 lg:pr-8 xl:pr-16"
-              style={{ minHeight: '100%' }}
-            >
+              >
               <div>
                 <h3 className="text-xl font-manrope font-bold text-gray-900 mb-4">
                   {t.getInTouch}
@@ -142,7 +138,7 @@ const Contact: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="bg-white p-3 rounded-full shadow-sm mr-4">
-                    <Phone size={20} className="text-primary-600" />
+                    <Phone size={20} className="text-red-600" />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.phone}</h4>
@@ -152,7 +148,7 @@ const Contact: React.FC = () => {
 
                 <div className="flex items-start">
                   <div className="bg-white p-3 rounded-full shadow-sm mr-4">
-                    <Mail size={20} className="text-primary-600" />
+                    <Mail size={20} className="text-red-600" />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.email}</h4>
@@ -168,19 +164,10 @@ const Contact: React.FC = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="lg:col-span-3"
             >
-              <div
-                className="rounded-3xl shadow-2xl p-8 border border-white/40 bg-white/40 backdrop-blur-2xl relative overflow-hidden"
-                style={{
-                  background: 'linear-gradient(120deg, rgba(0,147,237,0.10) 0%, rgba(213,95,127,0.10) 100%)',
-                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.10)',
-                  border: '1.5px solid rgba(255,255,255,0.25)',
-                  backdropFilter: 'blur(24px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-                }}
-              >
-                {/* Decorative inner shadow for depth */}
-                <div className="pointer-events-none absolute inset-0 rounded-3xl" style={{boxShadow: 'inset 0 2px 24px 0 rgba(0,0,0,0.07)'}} />
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="relative rounded-3xl overflow-hidden">
+                  <div className="hero-bg absolute inset-0" aria-hidden="true" />
+                  <div className="relative overflow-hidden p-6 md:p-8 rounded-3xl bg-gray-50 shadow-sm">
+                  <form className="space-y-6" onSubmit={handleSubmit}>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2 font-inter">
@@ -252,15 +239,22 @@ const Contact: React.FC = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center disabled:opacity-60"
+                    className="w-full inline-flex items-center justify-center rounded-lg px-4 py-3 disabled:opacity-60"
                     type="submit"
                     disabled={status === 'sending'}
+                    style={{
+                      background: 'linear-gradient(90deg, rgba(var(--duo-left),1), rgba(var(--duo-right),1))',
+                      color: '#fff'
+                    }}
                   >
-                    {status === 'sending' ? (lang === 'nl' ? 'Versturen...' : 'Sending...') : t.send}
-                    <Send size={18} className="ml-2" />
+                    <span className="font-medium text-base md:text-lg">
+                      {status === 'sending' ? (lang === 'nl' ? 'Versturen...' : 'Sending...') : t.send}
+                    </span>
+                    <Send size={18} className="ml-2 text-white" />
                   </motion.button>
                 </form>
               </div>
+                </div>
             </motion.div>
           </div>
         </div>
