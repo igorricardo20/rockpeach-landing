@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
         <div className="pointer-events-auto mx-auto max-w-4xl">
           {/* Mobile: single-panel layout (logo + language + menu) */}
           <div className="md:hidden">
-            <div className="glass-liquid pointer-events-auto flex items-center px-4 py-2 rounded-full h-12 justify-between">
+            <div className="glass-liquid pointer-events-auto flex items-center px-4 py-2 rounded-full h-14 justify-between">
               <a href="#" className="flex items-center h-8 pointer-events-auto flex-shrink-0" onClick={e => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
