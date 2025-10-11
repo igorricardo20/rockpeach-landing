@@ -75,7 +75,7 @@ const Navbar: React.FC = () => {
 
   return (
     <LangContext.Provider value={{ lang, setLang }}>
-      <nav className="fixed inset-x-6 top-8 z-50 pointer-events-none">
+      <nav className="fixed inset-x-6 top-6 z-50 pointer-events-none">
         <div className="pointer-events-auto mx-auto max-w-4xl">
           {/* Mobile: single-panel layout (logo + language + menu) */}
           <div className="md:hidden">
