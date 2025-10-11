@@ -124,7 +124,7 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, x: -30 }}
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="lg:col-span-2 flex flex-col justify-center h-full space-y-8 mb-8 px-2 sm:mb-0 lg:pr-8 xl:pr-16"
+              className="lg:col-span-2 flex flex-col justify-center h-full space-y-8 mb-8 px-2 sm:mb-0 lg:pr-8 xl:pr-16 order-2 lg:order-1"
               >
               <div>
                 <h3 className="text-xl font-manrope font-bold text-gray-900 mb-4">
@@ -162,7 +162,7 @@ const Contact: React.FC = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:col-span-3"
+              className="lg:col-span-3 order-1 lg:order-2"
             >
                 <div className="relative rounded-3xl overflow-hidden">
                   <div className="hero-bg absolute inset-0" aria-hidden="true" />

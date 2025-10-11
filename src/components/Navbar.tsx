@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
       process: "Process",
       services: "Services",
       contact: "Contact",
-      nav: ["About", "Projects", "Process", "Services"],
+      nav: ["Process", "Services", "About", "Contact"],
     },
     nl: {
       about: "Over ons",
@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
       process: "Hoe wij werken",
       services: "Diensten",
       contact: "Contact opnemen",
-      nav: ["Over ons", "Projecten", "Hoe wij werken", "Diensten"],
+      nav: ["Hoe wij werken", "Diensten", "Over ons", "Contact opnemen"],
     },
   } as const;
   type Lang = keyof typeof translations;
@@ -67,10 +67,10 @@ const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { name: translations[safeLang].nav[2], href: "#process" },
-    { name: translations[safeLang].nav[3], href: "#services" },
-    { name: translations[safeLang].nav[0], href: "#about" },
-    // { name: translations[safeLang].nav[1], href: "#projects" },
+    { name: translations[safeLang].nav[0], href: "#process" },
+    { name: translations[safeLang].nav[1], href: "#services" },
+    { name: translations[safeLang].nav[2], href: "#about" },
+    { name: translations[safeLang].nav[3], href: "#contact" },
   ];
 
   return (
@@ -154,14 +154,7 @@ const Navbar: React.FC = () => {
                     {link.name}
                   </a>
                 ))}
-                <a
-                  href="#contact"
-                  onClick={e => handleNavClick(e, "#contact")}
-                  className="hidden md:inline-flex items-center justify-center contact-cta font-inter text-sm text-slate-900 whitespace-nowrap transition-transform duration-200 transform hover:scale-105 px-2.5 md:px-3 py-1.5 focus:outline-none focus:shadow-none"
-                  style={{ minWidth: 0 }}
-                >
-                  {translations[safeLang].contact}
-                </a>
+                {/* Desktop contact CTA removed — contact remains available in the mobile menu */}
               </div>
 
               <div className="flex items-center space-x-2 pointer-events-auto">

@@ -387,6 +387,39 @@
 				z-index: 1;
 			}
 
+			/* Decorative overlay: subtle conic + radial highlights centered behind hero content */
+			.hero-overlay{
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 2;
+				background-image: 
+					/* brighter, crisper radials */
+					radial-gradient(1100px 520px at 12% 28%, rgba(255,255,255,0.32), transparent 44%),
+					radial-gradient(1300px 620px at 82% 72%, rgba(240,245,250,0.20), transparent 54%),
+					/* subtle darker radial to give midtone contrast so highlights read */
+					radial-gradient(1000px 520px at 50% 60%, rgba(10,12,20,0.06), transparent 38%),
+					/* conic color sweep for gentle hue movement */
+					conic-gradient(from var(--rim-angle) at 50% 40%, rgba(120,80,255,0.14), rgba(0,200,255,0.10), rgba(255,80,120,0.14), transparent 70%);
+				/* blend modes: screen for light radials, overlay for conic, multiply for subtle darkening layer */
+				background-blend-mode: screen, screen, multiply, overlay;
+				opacity: 1;
+				/* sharper but still soft edges */
+				filter: blur(6px) saturate(125%);
+				transform: translateZ(0);
+				animation: hero-overlay-drift 10s linear infinite;
+			}
+
+			@keyframes hero-overlay-drift {
+				0% { transform: translateY(0) scale(1) rotate(0deg); --rim-angle: 0deg; }
+				50% { transform: translateY(-8px) scale(1.01) rotate(0.2deg); --rim-angle: 180deg; }
+				100% { transform: translateY(0) scale(1) rotate(0deg); --rim-angle: 360deg; }
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.hero-overlay { animation: none !important; filter: none; }
+			}
+
 			.hero-bg > * { position: relative; z-index: 3; }
 			.hero-bg > * { position: relative; z-index: 4; }
 
