@@ -77,10 +77,9 @@ const Navbar: React.FC = () => {
     <LangContext.Provider value={{ lang, setLang }}>
       <nav className="fixed inset-x-6 top-8 z-50 pointer-events-none">
         <div className="pointer-events-auto mx-auto max-w-4xl">
-          {/* Mobile: two-panel layout (left rectangular, right circular) */}
-          <div className="md:hidden flex items-center justify-between gap-x-3">
-            {/* Left glassy rectangular panel (logo + language) */}
-            <div className="glass-liquid pointer-events-auto flex items-center px-4 py-2 rounded-full h-12 flex-1 justify-between max-w-[calc(100%)]">
+          {/* Mobile: single-panel layout (logo + language + menu) */}
+          <div className="md:hidden">
+            <div className="glass-liquid pointer-events-auto flex items-center px-4 py-2 rounded-full h-12 justify-between">
               <a href="#" className="flex items-center h-8 pointer-events-auto flex-shrink-0" onClick={e => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -89,43 +88,42 @@ const Navbar: React.FC = () => {
                 <img src="/rockpeach-logo.svg" alt="Rockpeach" className="h-5 w-auto" />
               </a>
 
-              {/* language switcher visible on mobile inside left panel */}
-              <div className="relative">
-                <button
-                  onClick={() => setDropdownOpen((open) => !open)}
-                  className="flex items-center bg-white/0 rounded-full px-2 py-1 border border-transparent focus:outline-none focus:shadow-none hover:bg-white/6 transition-colors shadow-none"
-                  aria-label="Change language"
-                  aria-haspopup="menu"
-                  aria-expanded={dropdownOpen}
-                >
-                  <span className="font-inter text-sm font-semibold text-gray-500 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute left-0 mt-2 min-w-32 bg-white/90 border border-gray-100 rounded-xl shadow-xl z-50 backdrop-blur-md flex flex-col justify-center overflow-hidden py-1">
-                    {['en', 'nl'].filter(l => l !== localLang).map(l => (
-                      <button
-                        key={l}
-                        onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
-                        className="w-full text-left px-4 py-2 text-sm font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-xl transition-colors"
-                      >
-                        {l === 'en' ? 'English' : 'Nederlands'}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+              <div className="flex items-center gap-2">
+                {/* language switcher visible on mobile inside the same panel */}
+                <div className="relative">
+                  <button
+                    onClick={() => setDropdownOpen((open) => !open)}
+                    className="flex items-center bg-white/0 rounded-full px-2 py-1 border border-transparent focus:outline-none focus:shadow-none hover:bg-white/6 transition-colors shadow-none"
+                    aria-label="Change language"
+                    aria-haspopup="menu"
+                    aria-expanded={dropdownOpen}
+                  >
+                    <span className="font-inter text-sm font-semibold text-gray-500 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
+                  </button>
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-xl z-50 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#F6F6F8' }}>
+                      {['en', 'nl'].filter(l => l !== localLang).map(l => (
+                        <button
+                          key={l}
+                          onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
+                          className="w-full text-left px-4 py-2 text-sm font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-xl transition-colors"
+                        >
+                          {l === 'en' ? 'English' : 'Nederlands'}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-            {/* Right circular glassy panel (menu toggle) */}
-            <div className="glass-liquid pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center">
-              <button
-                className="text-gray-600 focus:outline-none focus:shadow-none"
-                onClick={toggleMenu}
-                aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                aria-expanded={isOpen}
-              >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </button>
+                <button
+                  className="text-gray-600 focus:outline-none focus:shadow-none"
+                  onClick={toggleMenu}
+                  aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                  aria-expanded={isOpen}
+                >
+                  {isOpen ? <X size={20} /> : <Menu size={20} />}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -178,7 +176,7 @@ const Navbar: React.FC = () => {
                     <span className="font-inter text-sm font-semibold text-gray-800 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
                   </button>
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 min-w-32 bg-white/90 border border-gray-100 rounded-xl shadow-xl z-50 backdrop-blur-md flex flex-col justify-center overflow-hidden py-1">
+                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-xl z-50 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#F6F6F8' }}>
                       {['en', 'nl'].filter(l => l !== localLang).map(l => (
                         <button
                           key={l}
@@ -217,7 +215,8 @@ const Navbar: React.FC = () => {
                 style={{ display: 'flex', justifyContent: 'center', overflow: 'visible' }}
               >
                 <motion.div
-                  className="mobile-glass w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto"
+                  className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto border border-gray-100 rounded-xl shadow-xl"
+                  style={{ background: '#F6F6F8' }}
                   initial={{ y: -6, opacity: 0, scale: 0.995 }}
                   animate={{ y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 28 } }}
                   exit={{ y: -6, opacity: 0, scale: 0.995, transition: { duration: 0.12 } }}
