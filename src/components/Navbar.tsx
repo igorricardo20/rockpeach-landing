@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
                     <span className="font-inter text-sm font-semibold text-gray-500 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
                   </button>
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-xl z-50 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#F6F6F8' }}>
+                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-none z-51 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#FFFFFF' }}>
                       {['en', 'nl'].filter(l => l !== localLang).map(l => (
                         <button
                           key={l}
@@ -154,7 +154,6 @@ const Navbar: React.FC = () => {
                     {link.name}
                   </a>
                 ))}
-                {/* Desktop contact CTA removed — contact remains available in the mobile menu */}
               </div>
 
               <div className="flex items-center space-x-2 pointer-events-auto">
@@ -169,7 +168,7 @@ const Navbar: React.FC = () => {
                     <span className="font-inter text-sm font-semibold text-gray-800 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
                   </button>
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-xl z-50 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#F6F6F8' }}>
+                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-none z-50 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#FFFFFF' }}>
                       {['en', 'nl'].filter(l => l !== localLang).map(l => (
                         <button
                           key={l}
@@ -207,12 +206,12 @@ const Navbar: React.FC = () => {
                 className="mt-2 md:hidden pointer-events-auto"
                 style={{ display: 'flex', justifyContent: 'center', overflow: 'visible' }}
               >
-                <motion.div
-                  className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto border border-gray-100 rounded-xl shadow-xl"
-                  style={{ background: '#F6F6F8' }}
+                  <motion.div
+                  className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto border border-gray-100 rounded-xl shadow-none"
+                  style={{ background: '#FFFFFF' }}
                   initial={{ y: -6, opacity: 0, scale: 0.995 }}
                   animate={{ y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 28 } }}
-                  exit={{ y: -6, opacity: 0, scale: 0.995, transition: { duration: 0.12 } }}
+                  exit={{ y: -6, opacity: 1, scale: 1, transition: { duration: 0.12 } }}
                 >
                   {navLinks.map((link, i) => (
                     <motion.a
@@ -227,17 +226,6 @@ const Navbar: React.FC = () => {
                       {link.name}
                     </motion.a>
                   ))}
-
-                  <motion.a
-                    href="#contact"
-                    onClick={e => handleNavClick(e, "#contact")}
-                    className="mobile-item mt-2 font-inter font-medium text-gray-800 w-full hover:text-primary-600 transition-colors duration-200"
-                    initial={{ y: 12, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1, transition: { delay: 0.06 + navLinks.length * 0.04, duration: 0.26 } }}
-                    exit={{ y: 12, opacity: 0 }}
-                  >
-                    {translations[safeLang].contact}
-                  </motion.a>
                 </motion.div>
               </motion.div>
             )}

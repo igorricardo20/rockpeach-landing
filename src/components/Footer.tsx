@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
     <footer className="bg-gray-50 text-gray-800 py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="p-6 md:p-8 rounded-3xl bg-white shadow-sm">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3   gap-10">
           <div>
             <img 
               src="/rockpeach-logo.png" 
