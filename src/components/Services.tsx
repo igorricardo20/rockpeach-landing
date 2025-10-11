@@ -66,7 +66,7 @@ const Services: React.FC = () => {
         <div className="mx-auto max-w-4xl">
           {/* card containing 4 quadrants; mobile: 1 column x 4 rows, md+: 2x2 */}
           <div className="bg-white border border-transparent rounded-xl md:rounded-3xl overflow-hidden w-full md:min-h-[600px] flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 auto-rows-fr gap-1 bg-[rgba(var(--duo-right),0.16)] flex-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-4 md:grid-rows-2 auto-rows-fr gap-1 bg-[rgba(var(--usual-grey-rgb),0.16)] flex-1">
               <div className="bg-white p-8 flex flex-col justify-center text-left h-full">
                 <h3 className="text-2xl md:text-3xl font-manrope font-bold mb-1 text-gray-900">{t.aiTitle}</h3>
                 <div className="text-sm md:text-base text-zinc-500 mb-3">{t.aiSubtitle}</div>

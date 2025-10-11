@@ -70,26 +70,14 @@ const Process: React.FC = () => {
   const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
   const t = translations[safeLang] || translations.en;
 
-  // Per-step background gradients (mobile and desktop) to bias duo-right / duo-left per step
-  const stepBgMobile = [
-    // step 1: more duo-right
-    'linear-gradient(120deg, rgba(var(--duo-right),0.20) 0%, rgba(var(--duo-left),0.06) 100%)',
-    // step 2: a bit less duo-right
-    'linear-gradient(120deg, rgba(var(--duo-right),0.16) 0%, rgba(var(--duo-left),0.12) 100%)',
-    // step 3: a bit more duo-left
-    'linear-gradient(120deg, rgba(var(--duo-right),0.10) 0%, rgba(var(--duo-left),0.18) 100%)',
-    // step 4: more duo-left
-    'linear-gradient(120deg, rgba(var(--duo-right),0.06) 0%, rgba(var(--duo-left),0.22) 100%)',
+  // per-step explicit colors for the numbers (only these should be colored)
+  const stepColors = [
+    'rgba(var(--light-blue), 1)',
+    'rgba(var(--medium-blue), 1)',
+    'rgba(var(--strong-purple), 1)',
+    'rgba(var(--strong-pink), 1)',
   ];
-
-  const stepBgDesktop = [
-    // slightly stronger on desktop
-    'linear-gradient(120deg, rgba(var(--duo-right),0.22) 0%, rgba(var(--duo-left),0.08) 100%)',
-    'linear-gradient(120deg, rgba(var(--duo-right),0.18) 0%, rgba(var(--duo-left),0.14) 100%)',
-    'linear-gradient(120deg, rgba(var(--duo-right),0.12) 0%, rgba(var(--duo-left),0.20) 100%)',
-    'linear-gradient(120deg, rgba(var(--duo-right),0.08) 0%, rgba(var(--duo-left),0.24) 100%)',
-  ];
-
+  
   return (
     <section id="process" className="py-20 lg:py-32 bg-white">
       <div className="container mx-auto px-4 md:px-6">
@@ -128,11 +116,8 @@ const Process: React.FC = () => {
                 <div className="md:hidden flex flex-col space-y-8">
                   {steps.map((s, idx) => (
                     <motion.div key={idx} className="flex items-start" variants={stepVariant}>
-                      <motion.div variants={childVariant} className="flex-shrink-0 mr-4">
-                        <div className="glass-liquid step-icon w-12 h-12 rounded-full flex items-center justify-center relative" style={{ background: stepBgMobile[idx] }}>
-                          <div className="liquid-lense" style={{ borderRadius: '9999px' }} />
-                          <span className="relative z-10 text-sm font-bold text-gray-900">{idx + 1}</span>
-                        </div>
+                      <motion.div variants={childVariant} className="flex-shrink-0 mr-4 flex items-center">
+                        <span style={{ color: stepColors[idx] }} className="relative z-10 text-2xl md:text-3xl font-extrabold" aria-label={`Step ${idx + 1}`}>{idx + 1}</span>
                       </motion.div>
 
                       <div className="flex-1">
@@ -150,10 +135,7 @@ const Process: React.FC = () => {
                   {steps.map((s, idx) => (
                     <React.Fragment key={idx}>
                       <motion.div className="flex-1 flex flex-col items-center text-center px-4" variants={stepVariant}>
-                        <motion.div variants={childVariant} className="glass-liquid step-icon w-16 h-16 rounded-full flex items-center justify-center mb-3 relative" style={{ background: stepBgDesktop[idx] }}>
-                          <div className="liquid-lense" style={{ borderRadius: '9999px' }} />
-                          <span className="relative z-10 text-lg font-bold text-gray-900">{idx + 1}</span>
-                        </motion.div>
+                        <motion.span variants={childVariant} style={{ color: stepColors[idx] }} className="mb-3 text-3xl md:text-4xl font-extrabold" aria-label={`Step ${idx + 1}`}>{idx + 1}</motion.span>
                         <motion.h4 variants={childVariant} className="text-lg font-manrope font-bold text-gray-900 mb-1">{s.title}</motion.h4>
                         <motion.p variants={childVariant} className="text-gray-700 font-inter max-w-md">{s.body}</motion.p>
                       </motion.div>

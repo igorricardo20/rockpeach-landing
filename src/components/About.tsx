@@ -70,8 +70,8 @@ const About: React.FC = () => {
                 <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                   {[
                     { color: "text-black", value: "16+", title: t.stat1, desc: t.stat1desc },
-                    { color: "text-red-600", value: "100%", title: t.stat2, desc: t.stat2desc },
-                    { color: "text-orange-500", value: "3+", title: t.stat3, desc: t.stat3desc },
+                    { color: "text-blue-500", value: "100%", title: t.stat2, desc: t.stat2desc },
+                    { color: "text-red-600", value: "3+", title: t.stat3, desc: t.stat3desc },
                   ].map((stat, idx) => (
                     <div key={idx} className="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4 w-full sm:w-[48%] md:w-[32%] text-center sm:text-left" style={{ backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
                       <div className={`font-manrope font-bold ${stat.color} text-lg sm:text-xl md:text-2xl`}>{stat.value}</div>

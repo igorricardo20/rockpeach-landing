@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <img 
-              src="/rockpeach-logo-new.png" 
+              src="/rockpeach-logo.png" 
               alt="Rockpeach" 
               className="h-10 w-auto mb-6" 
             />

@@ -138,7 +138,7 @@ const Contact: React.FC = () => {
               <div className="space-y-6">
                 <div className="flex items-start">
                   <div className="bg-white p-3 rounded-full shadow-sm mr-4">
-                    <Phone size={20} className="text-red-600" />
+                    <Phone size={20} className="text-black" />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.phone}</h4>
@@ -148,7 +148,7 @@ const Contact: React.FC = () => {
 
                 <div className="flex items-start">
                   <div className="bg-white p-3 rounded-full shadow-sm mr-4">
-                    <Mail size={20} className="text-red-600" />
+                    <Mail size={20} className="text-black" />
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900 mb-1 font-inter">{t.email}</h4>
@@ -243,7 +243,7 @@ const Contact: React.FC = () => {
                     type="submit"
                     disabled={status === 'sending'}
                     style={{
-                      background: 'linear-gradient(90deg, rgba(var(--duo-left),1), rgba(var(--duo-right),1))',
+                      background: 'linear-gradient(90deg, var(--strong-blue), var(--strong-red))',
                       color: '#fff'
                     }}
                   >
