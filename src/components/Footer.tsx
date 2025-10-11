@@ -8,6 +8,8 @@ const translations = {
     company: "Company",
     about: "About us",
     projects: "Projects",
+    process: "Process",
+    blog: "Blog",
     contact: "Contact",
     services: "Services",
     web: "Web Development",
@@ -25,6 +27,8 @@ const translations = {
     company: "Bedrijf",
     about: "Over ons",
     projects: "Projecten",
+    process: "Hoe wij werken",
+    blog: "Blog",
     contact: "Contact",
     services: "Diensten",
     web: "Webontwikkeling",
@@ -50,7 +54,7 @@ const Footer: React.FC = () => {
     <footer className="bg-gray-50 text-gray-800 py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="p-6 md:p-8 rounded-3xl bg-white shadow-sm">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
           <div>
             <img 
               src="/rockpeach-logo.png" 
@@ -102,51 +106,21 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-manrope font-bold mb-6 text-gray-800">{t.company}</h3>
             <ul className="space-y-4">
               <li>
+                <a href="#process" className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
+                  <ChevronRight size={16} className="mr-2" />
+                  {t.process}
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
+                  <ChevronRight size={16} className="mr-2" />
+                  {t.services}
+                </a>
+              </li>
+              <li>
                 <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
                   <ChevronRight size={16} className="mr-2" />
                   {t.about}
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.projects}
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.contact}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-manrope font-bold mb-6 text-gray-800">{t.services}</h3>
-            <ul className="space-y-4">
-              <li>
-                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-600 hover:text-gray-900 transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.web}
-                </a>
-              </li>
-              <li>
-                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.mobile}
-                </a>
-              </li>
-              <li>
-                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.ux}
-                </a>
-              </li>
-              <li>
-                <a href="#services" onClick={e => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }); }} className="text-gray-400 hover:text-white transition-colors flex items-center font-inter">
-                  <ChevronRight size={16} className="mr-2" />
-                  {t.tech}
                 </a>
               </li>
             </ul>
@@ -169,10 +143,10 @@ const Footer: React.FC = () => {
               {t.rights(new Date().getFullYear())}
             </p>
             <div className="flex space-x-6">
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-inter">
+              <a href="#privacy" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-inter">
                 {t.privacy}
               </a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-inter">
+              <a href="#terms" className="text-gray-600 hover:text-gray-900 transition-colors text-sm font-inter">
                 {t.terms}
               </a>
             </div>
