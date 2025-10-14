@@ -79,8 +79,8 @@ const Process: React.FC = () => {
   ];
   
   return (
-    <section id="process" className="py-20 lg:py-32 bg-white">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="process" className="py-16 lg:py-32 bg-gray-50">
+      <div className="container mx-auto px-8 md:px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}

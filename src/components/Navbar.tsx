@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
                     <span className="font-inter text-sm font-semibold text-gray-500 uppercase tracking-wide hover:text-primary-600 transition-colors">{localLang}</span>
                   </button>
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-sm z-51 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#FFFFFF' }}>
+                    <div className="absolute right-0 mt-2 min-w-32 border border-gray-100 rounded-xl shadow-sm z-51 flex flex-col justify-center overflow-hidden py-1" style={{ background: '#f4f4f4' }}>
                       {['en', 'nl'].filter(l => l !== localLang).map(l => (
                         <button
                           key={l}
@@ -208,7 +208,7 @@ const Navbar: React.FC = () => {
               >
                   <motion.div
                   className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto border border-gray-100 rounded-xl shadow-none"
-                  style={{ background: '#FFFFFF' }}
+                  style={{ background: '#F4F4F4' }}
                   initial={{ y: -6, opacity: 0, scale: 0.995 }}
                   animate={{ y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 28 } }}
                   exit={{ y: -6, opacity: 1, scale: 1, transition: { duration: 0.12 } }}

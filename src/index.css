@@ -17,7 +17,7 @@
 @tailwind utilities;
 
 :root{
-	--rm-bg: #ffffff;
+	--rm-bg: #f2f2f2;
 	/* softened further: lighter dark gray for a softer, less-black tone */
 	--rm-text: #4b5563; /* gray-600 */
 	--rm-muted: #6b7280; /* gray-500 */
@@ -26,7 +26,7 @@
 	--duo-left: 205,64,18; /* slightly lighter than #c32e01 */
 	--duo-right: 231,148,115; /* #e79473 */
 	--duo-anim-duration: 20s;	
-	--siri-anim-duration: 6s;
+	--siri-anim-duration: 5s;
 	--rim-angle: 0deg; /* animated shared angle for conic gradients */
 	/* shared siri conic stops (used by CTA rim and conic-highlight text) */
 	--siri-conic: conic-gradient(from var(--rim-angle) at center,
@@ -644,6 +644,9 @@
 			background-size: 200% 200%;
 			background-position: 0% 50%;
 			transition: opacity 180ms ease;
+				/* animate colors only via hue-rotate so the rim geometry stays still */
+				/* use ease-in-out and alternate so it reads as a gentle pulse */
+				animation: rim-hue var(--siri-anim-duration) ease-in-out infinite alternate;
 			/* animate background-position so colors move without rotating the element */
 		}
 
@@ -651,6 +654,8 @@
 		.hero-cta:focus::before{
 			background-position: 100% 50%;
 			opacity: 1;
+			/* speed up the rim hue animation on hover for a snappier effect */
+			animation-duration: calc(var(--siri-anim-duration) / 2);
 		}
 
 		.hero-cta:focus{
@@ -658,22 +663,23 @@
 			box-shadow: 0 0 0 6px rgba(29,29,31,0.06); /* faint focus ring */
 		}
 
-		@keyframes rim-rotate-angle {
-			0% { --rim-angle: 0deg; }
-			100% { --rim-angle: 360deg; }
+		@keyframes rim-hue {
+			0% { filter: blur(6px) saturate(140%) hue-rotate(0deg); }
+			100% { filter: blur(6px) saturate(140%) hue-rotate(360deg); }
 		}
 
-	/* Animate shared rim angle on the root so both rim pseudo-elements and text conics rotate together */
-	:root {
-	    animation: rim-rotate-angle var(--siri-anim-duration) linear infinite;
-	}
+	/* rotate the pseudo-element itself so the conic gradient visually spins */
 
 	@media (prefers-reduced-motion: reduce) {
 	    :root { animation: none !important; --rim-angle: 0deg; }
 	}
 
+	@media (prefers-reduced-motion: reduce) {
+		.hero-cta::before { animation: none !important; }
+	}
+
 		@media (prefers-reduced-motion: reduce) {
-			.hero-cta::before { animation: none !important; transition: none !important; --rim-angle: 0deg; }
+			.hero-cta::before { animation: none !important; transition: none !important; }
 		}
 
 		@media (prefers-reduced-motion: reduce) {

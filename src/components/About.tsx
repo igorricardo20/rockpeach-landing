@@ -58,7 +58,7 @@ const About: React.FC = () => {
   return (
   <section id="about" className="relative py-20 lg:py-32 hero-bg overflow-hidden min-h-[520px] md:min-h-[760px] flex items-center">
     {/* Wavy animated background (uses component defaults matching Hero) */}
-    <WavyBackground verticalOffset="18%" />
+    {/* <WavyBackground verticalOffset="18%" /> */}
       <div className="container mx-auto px-4 md:px-6 relative z-30">
         <motion.div ref={ref} initial="hidden" animate={inView ? "visible" : "hidden"} variants={variants} transition={{ duration: 0.7 }}>
           <div className="mx-auto max-w-4xl w-full">

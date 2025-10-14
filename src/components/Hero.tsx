@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { LangContext } from "./Navbar";
-import { WavyBackground } from "./ui/wavy-background";
 // Button import removed: CTA now uses .liquid-button anchor
 
 const Hero: React.FC = () => {
@@ -45,7 +44,7 @@ const Hero: React.FC = () => {
   return (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-bg">
     {/* Wavy animated background component (behind overlays) */}
-    <WavyBackground verticalOffset="34%" />
+    {/* <WavyBackground verticalOffset="34%" /> */}
     {/* Decorative overlay for conic/radial highlights (low-opacity, non-intrusive) */}
     <div className="hero-overlay pointer-events-none z-10" aria-hidden="true" />
       <div className="container mx-auto px-4 relative z-30 py-24">
