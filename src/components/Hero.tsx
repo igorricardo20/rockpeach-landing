@@ -77,7 +77,7 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="absolute bottom-28 sm:bottom-20 left-0 right-0 flex justify-center"
+        className="absolute bottom-28 sm:bottom-20 left-0 right-0 flex justify-center hero-learn-indicator"
       >
         <button
           onClick={scrollToProcess}
