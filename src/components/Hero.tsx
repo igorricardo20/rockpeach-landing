@@ -45,7 +45,7 @@ const Hero: React.FC = () => {
   return (
   <section className="relative min-h-screen flex items-center justify-center overflow-hidden hero-bg">
     {/* Wavy animated background component (behind overlays) */}
-    <WavyBackground verticalOffset="28%" />
+    <WavyBackground verticalOffset="30%" />
     {/* Decorative overlay for conic/radial highlights (low-opacity, non-intrusive) */}
     <div className="hero-overlay pointer-events-none z-10" aria-hidden="true" />
       <div className="container mx-auto px-4 relative z-30 py-24">
