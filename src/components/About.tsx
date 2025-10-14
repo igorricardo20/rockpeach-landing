@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { LangContext } from "./Navbar";
+import { WavyBackground } from "./ui/wavy-background";
 
 const About: React.FC = () => {
   const { lang } = useContext(LangContext);
@@ -56,6 +57,8 @@ const About: React.FC = () => {
 
   return (
   <section id="about" className="relative py-20 lg:py-32 hero-bg overflow-hidden min-h-[520px] md:min-h-[760px] flex items-center">
+    {/* Wavy animated background (uses component defaults matching Hero) */}
+    <WavyBackground verticalOffset="18%" />
       <div className="container mx-auto px-4 md:px-6 relative z-30">
         <motion.div ref={ref} initial="hidden" animate={inView ? "visible" : "hidden"} variants={variants} transition={{ duration: 0.7 }}>
           <div className="mx-auto max-w-4xl w-full">
@@ -73,7 +76,7 @@ const About: React.FC = () => {
                     { color: "text-blue-500", value: "100%", title: t.stat2, desc: t.stat2desc },
                     { color: "text-red-600", value: "3+", title: t.stat3, desc: t.stat3desc },
                   ].map((stat, idx) => (
-                    <div key={idx} className="glass rounded-full px-6 py-3 sm:px-8 sm:py-4 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4 w-full sm:w-[48%] md:w-[32%] text-center sm:text-left" style={{ backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}>
+                    <div key={idx} className="glass super-glassy rounded-full px-6 py-3 sm:px-8 sm:py-4 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4 w-full sm:w-[48%] md:w-[32%] text-center sm:text-left">
                       <div className={`font-manrope font-bold ${stat.color} text-lg sm:text-xl md:text-2xl`}>{stat.value}</div>
                       <div className="font-inter text-sm">
                         <h3 className="font-medium text-gray-900">{stat.title}</h3>
