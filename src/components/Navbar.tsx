@@ -207,8 +207,8 @@ const Navbar: React.FC = () => {
                 style={{ display: 'flex', justifyContent: 'center', overflow: 'visible' }}
               >
                   <motion.div
-                  className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto border border-gray-100 rounded-xl shadow-none"
-                  style={{ background: '#F4F4F4' }}
+                  className="w-full max-w-md px-4 py-6 flex flex-col items-center pointer-events-auto rounded-xl shadow-lg"
+                  style={{ background: '#FFFFFF' }}
                   initial={{ y: -6, opacity: 0, scale: 0.995 }}
                   animate={{ y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 320, damping: 28 } }}
                   exit={{ y: -6, opacity: 1, scale: 1, transition: { duration: 0.12 } }}
