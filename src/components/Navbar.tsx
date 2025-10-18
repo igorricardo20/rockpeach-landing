@@ -1,231 +1,329 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
-import { Menu, X, Globe } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, createContext, useContext } from 'react';
+import { Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const LangContext = createContext<{ lang: string; setLang: (l: string) => void }>({ lang: 'en', setLang: () => {} });
 
 const Navbar: React.FC = () => {
-  const context = useContext(LangContext);
-  const lang = context?.lang || 'en';
-  const setLang = context?.setLang || (() => {});
+    const context = useContext(LangContext);
+    const lang = context?.lang || 'en';
+    const stableNoop = React.useCallback(() => {}, []);
+    const setLang = context?.setLang ?? stableNoop;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    // Fade in navbar after mount
+    useEffect(() => {
+        const timer = setTimeout(() => setIsVisible(true), 100);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Close dropdown on outside click or Escape
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as HTMLElement | null;
+            if (!target) return;
+            // Close if click is not inside any element marked as a language switcher root
+            if (!target.closest('[data-lang-root="true"]')) {
+                setDropdownOpen(false);
+            }
+        };
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setDropdownOpen(false);
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const toggleMenu = () => setIsOpen(!isOpen);
+
+    // Localization dictionary
+    const translations = {
+        en: {
+            about: 'About',
+            projects: 'Projects',
+            process: 'Process',
+            services: 'Services',
+            contact: "Let's talk",
+            nav: ['About', 'Projects', 'Process', 'Services'],
+        },
+        nl: {
+            about: 'Over ons',
+            projects: 'Projecten',
+            process: 'Hoe wij werken',
+            services: 'Diensten',
+            contact: 'Contact opnemen',
+            nav: ['Over ons', 'Projecten', 'Hoe wij werken', 'Diensten'],
+        },
+    } as const;
+    type Lang = keyof typeof translations;
+    const getInitialLang = () => {
+        const stored = localStorage.getItem('rockpeach-lang');
+        if (stored) return stored;
+        const sysLang = navigator.language?.toLowerCase() || 'en';
+        if (sysLang.startsWith('nl')) return 'nl';
+        return 'en';
+    };
+    const [localLang, setLocalLang] = useState(getInitialLang);
+    const safeLang: Lang = ['en', 'nl'].includes(localLang) ? (localLang as Lang) : 'en';
+
+    React.useEffect(() => {
+        localStorage.setItem('rockpeach-lang', localLang);
+        setLang(localLang); // Update context language
+    }, [localLang, setLang]);
+
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        if (href.startsWith('#')) {
+            e.preventDefault();
+            const id = href.replace('#', '');
+            const el = document.getElementById(id);
+            if (el) {
+                // Timeout ensures menu closes before scroll (for mobile)
+                setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+            setIsOpen(false); // close mobile menu if open
+        }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const navLinks = [
+        { name: translations[safeLang].nav[2], href: '#process' },
+        { name: translations[safeLang].nav[3], href: '#services' },
+        { name: translations[safeLang].nav[0], href: '#about' },
+        // { name: translations[safeLang].nav[1], href: "#projects" },
+    ];
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  // Localization dictionary
-  const translations = {
-    en: {
-      about: "About",
-      projects: "Projects",
-      process: "Process",
-      services: "Services",
-      contact: "Let's talk",
-      nav: ["About", "Projects", "Process", "Services"],
-    },
-    nl: {
-      about: "Over ons",
-      projects: "Projecten",
-      process: "Hoe wij werken",
-      services: "Diensten",
-      contact: "Contact opnemen",
-      nav: ["Over ons", "Projecten", "Hoe wij werken", "Diensten"],
-    },
-  } as const;
-  type Lang = keyof typeof translations;
-  const getInitialLang = () => {
-    const stored = localStorage.getItem('rockpeach-lang');
-    if (stored) return stored;
-    const sysLang = navigator.language?.toLowerCase() || 'en';
-    if (sysLang.startsWith('nl')) return 'nl';
-    return 'en';
-  };
-  const [localLang, setLocalLang] = useState(getInitialLang);
-  const safeLang: Lang = ["en", "nl"].includes(localLang) ? (localLang as Lang) : "en";
-
-  React.useEffect(() => {
-    localStorage.setItem('rockpeach-lang', localLang);
-    setLang(localLang); // Update context language
-  }, [localLang, setLang]);
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith("#")) {
-      e.preventDefault();
-      const id = href.replace("#", "");
-      const el = document.getElementById(id);
-      if (el) {
-        // Timeout ensures menu closes before scroll (for mobile)
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: "smooth" });
-        }, 100);
-      }
-      setIsOpen(false); // close mobile menu if open
-    }
-  };
-
-  const navLinks = [
-    { name: translations[safeLang].nav[2], href: "#process" },
-    { name: translations[safeLang].nav[3], href: "#services" },
-    { name: translations[safeLang].nav[0], href: "#about" },
-    // { name: translations[safeLang].nav[1], href: "#projects" },
-  ];
-
-  return (
-    <LangContext.Provider value={{ lang, setLang }}>
-      <nav 
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled 
-            ? "bg-white bg-opacity-90 backdrop-blur-sm shadow-md py-3" 
-            : "bg-white py-5"
-        }`}
-      >
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="flex justify-between items-center">
-            <a href="#" className="flex items-center h-8 ml-2 md:ml-0" onClick={e => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              setIsOpen(false);
-            }}>
-              <img 
-                src="/rockpeach-logo.svg" 
-                alt="Rockpeach" 
-                className="h-7 md:h-8 w-auto" 
-              />
-            </a>
-
-            <div className="flex md:hidden items-center">
-              {/* Mobile Language Switcher Dropdown - Minimalistic */}
-              <div className="relative mr-2">
-                <button
-                  onClick={() => setDropdownOpen((open) => !open)}
-                  className="flex items-center space-x-1 bg-white/70 rounded-md px-2 py-1 border border-gray-100 focus:outline-none hover:bg-gray-50 transition-colors shadow-none"
-                  aria-label="Change language"
-                  style={{ boxShadow: 'none' }}
-                >
-                  <Globe size={17} className="text-primary-600" />
-                  <span className="font-inter text-xs font-medium text-primary-600 uppercase">{localLang}</span>
-                  <svg className="w-2.5 h-2.5 ml-0.5 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute left-0 mt-1 min-w-24 bg-white border border-gray-100 rounded-md shadow z-50 flex flex-col py-0.5">
-                    {['en', 'nl'].filter(l => l !== localLang).map(l => (
-                      <button
-                        key={l}
-                        onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
-                        className="w-full text-left px-3 py-1 text-xs font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-md transition-colors focus:outline-none border-none shadow-none bg-transparent"
-                        style={{ border: 'none', boxShadow: 'none', background: 'transparent' }}
-                      >
-                        {l === 'en' ? 'EN' : 'NL'}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Mobile nav button */}
-              <button
-                className="md:hidden text-gray-600 focus:outline-none"
-                onClick={toggleMenu}
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={e => handleNavClick(e, link.href)}
-                  className="font-inter font-medium text-gray-800 transition-colors duration-300 hover:text-primary-600"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={e => handleNavClick(e, "#contact")}
-                className="bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white font-inter font-medium py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
-              >
-                {translations[safeLang].contact}
-              </a>
-              {/* Language Switcher */}
-              <div className="ml-6 relative">
-                <button
-                  onClick={() => setDropdownOpen((open) => !open)}
-                  className="flex items-center space-x-2 bg-white/80 rounded-lg px-3 py-1 shadow-sm border border-gray-200 focus:outline-none hover:bg-gray-100 transition-colors"
-                  aria-label="Change language"
-                >
-                  <Globe size={18} className="text-primary-600" />
-                  <span className="font-inter text-sm font-medium text-primary-600 uppercase">{localLang}</span>
-                  <svg className="w-3 h-3 ml-1 text-gray-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                </button>
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 min-w-32 max-h-20 bg-white/90 border border-gray-100 rounded-xl shadow-xl z-50 backdrop-blur-md flex flex-col justify-center overflow-hidden py-1">
-                    {['en', 'nl'].filter(l => l !== localLang).map(l => (
-                      <button
-                        key={l}
-                        onClick={() => { setLocalLang(l); setDropdownOpen(false); }}
-                        className="w-full text-left px-4 py-2 text-sm font-inter text-black hover:bg-primary-50 hover:text-primary-700 rounded-xl transition-colors focus:outline-none focus:ring-0 bg-transparent border-none shadow-none"
-                        style={{ border: 'none', boxShadow: 'none', background: 'transparent' }}
-                      >
-                        {l === 'en' ? 'English' : 'Nederlands'}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.18 }}
-              className="md:hidden bg-white shadow-lg"
+    return (
+        <LangContext.Provider value={{ lang, setLang }}>
+            {/* Floating Semi-Circular Navbar */}
+            <motion.nav
+                className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4"
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -30 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="container mx-auto px-4 py-6 flex flex-col items-center space-y-4">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={e => handleNavClick(e, link.href)}
-                    className="font-inter font-medium text-gray-800 py-2 w-full text-center hover:text-primary-600 transition-colors duration-200"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <a
-                  href="#contact"
-                  onClick={e => handleNavClick(e, "#contact")}
-                  className="bg-gradient-to-r from-primary-600 to-accent-600 text-white font-inter font-medium py-3 px-6 rounded-lg text-center w-full"
+                <div
+                    className={`
+                        w-full max-w-6xl
+                        rounded-full px-5 md:px-8 py-3.5
+                        bg-white/70 backdrop-blur-2xl 
+                        shadow-[0_8px_32px_0_rgba(0,0,0,0.08)]
+                        border border-white/60
+                        transition-all duration-500
+                        hover:shadow-[0_8px_32px_0_rgba(0,0,0,0.12)]
+                        ${scrolled ? 'bg-white/85 shadow-[0_8px_32px_0_rgba(0,0,0,0.15)]' : ''}
+                    `}
                 >
-                  {translations[safeLang].contact}
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-    </LangContext.Provider>
-  );
+                    <div className="flex justify-between items-center">
+                        {/* Logo */}
+                        <a
+                            href="#"
+                            className="flex items-center h-7"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                setIsOpen(false);
+                            }}
+                        >
+                            <img src="/rockpeach-logo-new-black.png" alt="Rockpeach" className="w-auto h-5 md:h-6" />
+                        </a>
+
+                        <div className="flex items-center md:hidden">
+                            {/* Mobile Language Switcher */}
+                            <div className="relative mr-2" data-lang-root="true">
+                                <button
+                                    onClick={() => setDropdownOpen((open) => !open)}
+                                    className={`group inline-flex items-center rounded-full border border-gray-900/10 bg-white/40 backdrop-blur px-2.5 py-1.5 text-[11px] font-inter font-semibold text-gray-800 transition-all hover:bg-white/70 ${
+                                        dropdownOpen ? 'bg-white/70' : ''
+                                    }`}
+                                    aria-label="Change language"
+                                    aria-haspopup="menu"
+                                    aria-controls="lang-menu-mobile"
+                                >
+                                    <span className="tracking-wider uppercase">{localLang}</span>
+                                    <svg
+                                        className={`w-2.5 h-2.5 ml-1 text-gray-600 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <AnimatePresence>
+                                    {dropdownOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                                            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                                            className="overflow-hidden absolute left-0 z-50 mt-2 rounded-2xl border border-gray-900/10 shadow-[0_8px_24px_0_rgba(0,0,0,0.12)] backdrop-blur-2xl min-w-28 bg-white/95"
+                                            id="lang-menu-mobile"
+                                            role="menu"
+                                        >
+                                            <div className="py-1">
+                                                {['en', 'nl']
+                                                    .filter((l) => l !== localLang)
+                                                    .map((l) => (
+                                                        <button
+                                                            key={l}
+                                                            onClick={() => {
+                                                                setLocalLang(l);
+                                                                setDropdownOpen(false);
+                                                            }}
+                                                            className="w-full text-left px-3 py-2 text-xs font-inter font-medium text-gray-800 hover:bg-gray-50 hover:text-gray-900 transition-all"
+                                                        >
+                                                            {l === 'en' ? 'EN' : 'NL'}
+                                                        </button>
+                                                    ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Mobile nav button */}
+                            <button className="text-gray-600 md:hidden focus:outline-none" onClick={toggleMenu}>
+                                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
+
+                        {/* Desktop Nav */}
+                        <div className="hidden items-center gap-1 lg:gap-2 md:flex">
+                            {navLinks.map((link) => (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    onClick={(e) => handleNavClick(e, link.href)}
+                                    className="px-3 lg:px-4 py-2 text-xs lg:text-sm font-medium text-gray-800 transition-all duration-300 font-inter hover:text-gray-900 relative group whitespace-nowrap rounded-full hover:bg-white/50"
+                                >
+                                    {link.name}
+                                </a>
+                            ))}
+
+                            {/* Divider */}
+                            <div className="w-px h-4 bg-gray-400/30 mx-1"></div>
+
+                            {/* CTA Button */}
+                            <a
+                                href="#contact"
+                                onClick={(e) => handleNavClick(e, '#contact')}
+                                className="px-5 lg:px-6 py-2 text-xs lg:text-sm font-semibold text-gray-900 bg-gradient-to-br from-white via-white to-gray-50 rounded-full transition-all duration-300 transform font-inter hover:shadow-lg border border-gray-900/10 hover:scale-[1.02] whitespace-nowrap shadow-sm"
+                            >
+                                {translations[safeLang].contact}
+                            </a>
+
+                            {/* Language Switcher */}
+                            <div className="relative ml-1" data-lang-root="true">
+                                <button
+                                    onClick={() => setDropdownOpen((open) => !open)}
+                                    className={`group inline-flex items-center rounded-full border border-gray-900/10 bg-white/40 backdrop-blur px-3 py-2 text-xs font-inter font-semibold text-gray-800 transition-all hover:bg-white/70 hover:border-gray-900/20 ${
+                                        dropdownOpen ? 'bg-white/70 border-gray-900/20' : ''
+                                    }`}
+                                    aria-label="Change language"
+                                    aria-haspopup="menu"
+                                    aria-controls="lang-menu-desktop"
+                                >
+                                    <span className="tracking-wider uppercase">{localLang}</span>
+                                    <svg
+                                        className={`w-3 h-3 ml-1.5 text-gray-600 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2.5"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </button>
+                                <AnimatePresence>
+                                    {dropdownOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                                            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                                            className="overflow-hidden absolute right-0 z-50 mt-3 rounded-2xl border border-gray-900/10 shadow-[0_8px_24px_0_rgba(0,0,0,0.12)] backdrop-blur-2xl min-w-40 bg-white/95"
+                                            id="lang-menu-desktop"
+                                            role="menu"
+                                        >
+                                            <div className="py-1.5">
+                                                {['en', 'nl']
+                                                    .filter((l) => l !== localLang)
+                                                    .map((l) => (
+                                                        <button
+                                                            key={l}
+                                                            onClick={() => {
+                                                                setLocalLang(l);
+                                                                setDropdownOpen(false);
+                                                            }}
+                                                            className="px-4 py-2.5 w-full text-sm text-left text-gray-800 transition-all font-inter hover:bg-gray-50 hover:text-gray-900 font-medium"
+                                                        >
+                                                            {l === 'en' ? 'English' : 'Nederlands'}
+                                                        </button>
+                                                    ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Mobile Menu - Floating Dropdown */}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.96, y: -10 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+                            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                            className="absolute top-full left-2 right-2 mt-4 bg-white/90 backdrop-blur-2xl rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.12)] border border-white/60 md:hidden overflow-hidden"
+                        >
+                            <div className="flex flex-col items-center px-6 py-6 space-y-2">
+                                {navLinks.map((link) => (
+                                    <a
+                                        key={link.name}
+                                        href={link.href}
+                                        onClick={(e) => handleNavClick(e, link.href)}
+                                        className="py-2.5 px-4 w-full font-medium text-center text-gray-800 transition-all duration-200 font-inter hover:text-gray-900 rounded-full hover:bg-white/50"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ))}
+                                <div className="w-full h-px bg-gray-400/20 my-2"></div>
+                                <a
+                                    href="#contact"
+                                    onClick={(e) => handleNavClick(e, '#contact')}
+                                    className="px-6 py-2.5 w-full font-semibold text-center text-gray-900 bg-gradient-to-br from-white via-white to-gray-50 rounded-full font-inter shadow-sm border border-gray-900/10"
+                                >
+                                    {translations[safeLang].contact}
+                                </a>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </motion.nav>
+        </LangContext.Provider>
+    );
 };
 
 export default Navbar;
