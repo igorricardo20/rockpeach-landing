@@ -1,53 +1,45 @@
 import React, { useContext } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { Check } from "lucide-react";
 import { LangContext } from "./Navbar";
-import { WavyBackground } from "./ui/wavy-background";
 
 const About: React.FC = () => {
   const { lang } = useContext(LangContext);
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.18 });
 
-  const variants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  // Localization dictionary (kept the original texts)
   const translations = {
     en: {
-      about: "About us",
-      projects: "Our projects",
-      process: "How we work",
-      services: "What we deliver",
-      contact: "Start your free concept",
+      about: "A small studio built for fast, careful work.",
       aboutText1:
-        "At Rockpeach, we believe technology goes beyond code, it's about creating experiences that connect people and businesses. We develop software with agility and excellence, using modern tools to quickly deliver what our clients need.",
+        "Rockpeach sits between product strategy, software engineering and design. That means fewer handoffs, clearer decisions and a first version that feels coherent from day one.",
       aboutText2:
-        "We combine speed, reliability, and a keen eye for design. We turn concepts into products that drive success.",
-      stat1: "Prototypes Shipped",
-      stat1desc: "POCs, MVPs",
+        "We like modern tools, but we care more about useful outcomes: the screen that makes sense, the automation that saves time, the launch that does not wobble.",
+      stat1: "Prototypes shipped",
+      stat1desc: "POCs, MVPs and product experiments",
       stat2: "Commitment",
-      stat2desc: "Attention to every detail",
-      stat3: "Countries Served",
-      stat3desc: "Europe & South America",
+      stat2desc: "Close attention to the small things",
+      stat3: "Countries served",
+      stat3desc: "Europe and South America",
+      note1: "Lean team, direct communication",
+      note2: "Design and engineering together",
+      note3: "Built around your first real users",
     },
     nl: {
-      about: "Over ons",
-      projects: "Onze projecten",
-      process: "Hoe wij werken",
-      services: "Wat wij leveren",
-      contact: "Start je gratis concept",
+      about: "Een kleine studio voor snel en zorgvuldig werk.",
       aboutText1:
-        "Bij Rockpeach geloven we dat technologie verder gaat dan code; het draait om het creëren van ervaringen die mensen en bedrijven verbinden. We ontwikkelen software met wendbaarheid en uitmuntendheid, met moderne tools om snel te leveren wat onze klanten nodig hebben.",
+        "Rockpeach zit tussen productstrategie, software engineering en design. Daardoor zijn er minder overdrachten, helderdere keuzes en voelt de eerste versie vanaf dag een coherent.",
       aboutText2:
-        "We combineren snelheid, betrouwbaarheid en een scherp oog voor design. We vertalen concepten naar producten die succes brengen.",
+        "We houden van moderne tools, maar geven meer om nuttige uitkomsten: een scherm dat klopt, automatisering die tijd bespaart en een lancering die stevig staat.",
       stat1: "Geleverde prototypes",
-      stat1desc: "Apps, MVP's & experimenten",
+      stat1desc: "POCs, MVPs en productexperimenten",
       stat2: "Toewijding",
-      stat2desc: "Aandacht voor elk detail",
+      stat2desc: "Aandacht voor de kleine dingen",
       stat3: "Landen bediend",
-      stat3desc: "Europa & Zuid-Amerika",
+      stat3desc: "Europa en Zuid-Amerika",
+      note1: "Lean team, directe communicatie",
+      note2: "Design en engineering samen",
+      note3: "Gebouwd rond je eerste echte gebruikers",
     },
   } as const;
 
@@ -55,36 +47,54 @@ const About: React.FC = () => {
   const safeLang: Lang = ["en", "nl"].includes(lang) ? (lang as Lang) : "en";
   const t = translations[safeLang];
 
-  return (
-  <section id="about" className="relative py-20 lg:py-32 hero-bg overflow-hidden min-h-[520px] md:min-h-[760px] flex items-center">
-    {/* Wavy animated background (uses component defaults matching Hero) */}
-    {/* <WavyBackground verticalOffset="18%" /> */}
-      <div className="container mx-auto px-4 md:px-6 relative z-30">
-        <motion.div ref={ref} initial="hidden" animate={inView ? "visible" : "hidden"} variants={variants} transition={{ duration: 0.7 }}>
-          <div className="mx-auto max-w-4xl w-full">
-            <div className="text-center lg:text-left px-4 md:px-0 flex flex-col justify-center h-full">
-              <h2 className="text-3xl md:text-4xl font-manrope font-bold mb-4 text-gray-900">{t.about}</h2>
-              <div className="prose prose-lg mx-auto text-gray-700 max-w-none">
-                <p className="mb-4 font-inter text-lg leading-relaxed">{t.aboutText1}</p>
-                <p className="mb-6 font-inter text-lg leading-relaxed">{t.aboutText2}</p>
-              </div>
+  const stats = [
+    { value: "16+", title: t.stat1, desc: t.stat1desc },
+    { value: "100%", title: t.stat2, desc: t.stat2desc },
+    { value: "3+", title: t.stat3, desc: t.stat3desc },
+  ];
 
-              <div className="mt-6">
-                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                  {[
-                    { color: "text-black", value: "16+", title: t.stat1, desc: t.stat1desc },
-                    { color: "text-blue-500", value: "100%", title: t.stat2, desc: t.stat2desc },
-                    { color: "text-red-600", value: "3+", title: t.stat3, desc: t.stat3desc },
-                  ].map((stat, idx) => (
-                    <div key={idx} className="glass super-glassy rounded-full px-6 py-3 sm:px-8 sm:py-4 flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-4 w-full sm:w-[48%] md:w-[32%] text-center sm:text-left">
-                      <div className={`font-manrope font-bold ${stat.color} text-lg sm:text-xl md:text-2xl`}>{stat.value}</div>
-                      <div className="font-inter text-sm">
-                        <h3 className="font-medium text-gray-900">{stat.title}</h3>
-                        <p className="text-gray-600">{stat.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+  return (
+    <section id="about" className="relative overflow-hidden bg-[#f4f5f7] py-20 lg:py-28">
+      <div className="container mx-auto px-4 md:px-6">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.7 }}
+          className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center"
+        >
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-bold leading-tight text-gray-950 font-manrope md:text-5xl">{t.about}</h2>
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-gray-700">
+              <p>{t.aboutText1}</p>
+              <p>{t.aboutText2}</p>
+            </div>
+            <div className="mt-8 grid gap-4 sm:max-w-lg">
+              {[t.note1, t.note2, t.note3].map((note) => (
+                <div key={note} className="flex items-center gap-3 border-b border-gray-200/80 pb-3 text-[0.98rem] font-medium tracking-[0.01em] text-gray-800 last:border-b-0 last:pb-0">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center text-gray-900/58">
+                    <Check size={15} strokeWidth={2.3} />
+                  </span>
+                  <span>{note}</span>
                 </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -right-8 -top-8 h-40 w-40 rounded-full bg-accent-400/20 blur-3xl" aria-hidden="true" />
+            <div className="overflow-hidden rounded-[1.75rem] border border-white/80 bg-white p-3 shadow-[0_24px_80px_rgba(15,23,42,0.1)]">
+              <img src="/it-team.png" alt="Rockpeach IT team" className="h-64 w-full rounded-[1.2rem] object-cover md:h-80" />
+              <div className="grid gap-px overflow-hidden rounded-[1.2rem] bg-gray-200 mt-3">
+                {stats.map((stat) => (
+                  <div key={stat.title} className="grid grid-cols-[5.5rem_1fr] items-center gap-4 bg-white p-5">
+                    <div className="text-3xl font-bold text-gray-950 font-manrope">{stat.value}</div>
+                    <div>
+                      <h3 className="font-semibold text-gray-950">{stat.title}</h3>
+                      <p className="text-sm text-gray-600">{stat.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

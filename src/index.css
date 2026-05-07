@@ -3,12 +3,6 @@
 	50% { transform: translateY(40px); }
 }
 
-/* Small-screen tweak: nudge the hero "Learn more" indicator further down on very narrow devices (iPhone SE) */
-@media (max-width: 380px) {
-	.hero-learn-indicator {
-		bottom: 40px !important; /* bring it closer to the bottom edge on tiny screens */
-	}
-}
 .animate-diagonal-move {
 	animation: diagonal-move 3s ease-in-out infinite;
 }

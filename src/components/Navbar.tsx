@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 setIsOpen(false);
               }}>
-                <img src="/rockpeach-logo.svg" alt="Rockpeach" className="h-5 w-auto" />
+                <img src="/rockpeach-logo-grey.svg" alt="Rockpeach" className="h-5 w-auto" />
               </a>
 
               <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ const Navbar: React.FC = () => {
                 setIsOpen(false);
               }}>
                 <img 
-                  src="/rockpeach-logo.svg" 
+                  src="/rockpeach-logo-grey.svg" 
                   alt="Rockpeach" 
                   className="h-5 md:h-6 w-auto" 
                 />
