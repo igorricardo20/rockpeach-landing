@@ -129,8 +129,7 @@ const Services: React.FC = () => {
                   {deliveryMap.map((item) => {
                     return (
                       <div key={item.title} className="rounded-md border border-white/10 bg-gray-950/60 p-4 lg:min-h-[180px] lg:p-6">
-                        <div className="h-1 w-8 rounded-full bg-gradient-to-r from-primary-400 to-accent-400" aria-hidden="true" />
-                        <div className="mt-4 text-sm font-bold text-white">{item.title}</div>
+                        <div className="text-sm font-bold text-white">{item.title}</div>
                         <p className="mt-2 text-xs leading-relaxed text-white/55">{item.body}</p>
                       </div>
                     );

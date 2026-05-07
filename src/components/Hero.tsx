@@ -167,7 +167,7 @@ const Hero: React.FC = () => {
                     <div className="max-w-lg text-[1.72rem] font-semibold leading-[1.05] font-manrope text-white sm:text-3xl md:text-4xl">
                       {t.cardTitle}
                     </div>
-                    <div className="mt-4 grid gap-3 rounded-[1rem] border border-white/12 bg-white/10 p-3 backdrop-blur sm:mt-6 sm:grid-cols-[1fr_auto] sm:p-4">
+                    <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-[1fr_auto] sm:rounded-[1rem] sm:border sm:border-white/12 sm:bg-white/10 sm:p-4 sm:backdrop-blur">
                       <div className="hidden gap-px overflow-hidden rounded-[0.85rem] bg-white/10 sm:grid sm:auto-rows-fr sm:grid-cols-3">
                         {sprintItems.map((item) => (
                           <div key={item.label} className="flex h-full flex-col justify-center bg-transparent px-4 py-3.5 text-white/85 lg:min-h-[6.25rem] lg:justify-center lg:gap-1.5 lg:px-4 lg:py-4">
