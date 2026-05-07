@@ -145,7 +145,7 @@ const Services: React.FC = () => {
                   <span className="h-px flex-1 bg-gradient-to-l from-transparent via-white/12 to-accent-300/45" />
                 </div>
                 <p className="max-w-2xl text-sm font-medium leading-relaxed tracking-[0.01em] text-white/78 sm:text-[0.95rem]">
-                  <span className="bg-[linear-gradient(90deg,#f8fafc_0%,#dbeafe_48%,#fda4af_100%)] bg-clip-text text-transparent">
+                  <span className="text-white">
                     {t.labEffect}
                   </span>
                 </p>

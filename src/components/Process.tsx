@@ -132,12 +132,12 @@ const Process: React.FC = () => {
           </div>
         </motion.div>
 
-        <div className="mx-auto mt-12 grid max-w-[1320px] gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch xl:gap-7">
+        <div className="mx-auto mt-12 grid max-w-[1320px] gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch xl:gap-7">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative overflow-hidden rounded-lg bg-gray-950 p-7 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)]"
+            className="relative overflow-hidden rounded-lg bg-gray-950 p-7 text-white shadow-[0_24px_80px_rgba(15,23,42,0.22)] lg:order-2"
           >
             <div
               className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-primary-500/30 blur-3xl"
@@ -195,7 +195,7 @@ const Process: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.7, delay: 0.16 }}
-            className="relative overflow-hidden rounded-lg border border-white/10 bg-gray-950 p-2 shadow-[0_24px_80px_rgba(15,23,42,0.18)]"
+            className="relative overflow-hidden rounded-lg border border-white/10 bg-gray-950 p-2 shadow-[0_24px_80px_rgba(15,23,42,0.18)] lg:order-1"
           >
             <div
               className="absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-primary-500/20 blur-3xl"

@@ -101,8 +101,8 @@ const Hero: React.FC = () => {
   return (
     <section className="relative min-h-screen overflow-hidden hero-bg">
       <div className="hero-overlay pointer-events-none z-10" aria-hidden="true" />
-      <div className="container relative z-30 mx-auto px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8 lg:pb-24 lg:pt-28">
-        <div className="grid gap-10 sm:gap-12 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[0.9fr_1.1fr] lg:items-start xl:gap-16">
+      <div className="container relative z-30 mx-auto px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:px-8 lg:pb-24 lg:pt-12">
+        <div className="grid gap-10 sm:gap-12 lg:min-h-[calc(100vh-8rem)] lg:grid-cols-[0.9fr_1.1fr] lg:items-center xl:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ const Hero: React.FC = () => {
             initial={{ opacity: 0, y: 18, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.12 }}
-            className="relative mx-auto w-full max-w-xl sm:max-w-2xl lg:max-w-none"
+            className="relative mx-auto w-full max-w-xl sm:max-w-2xl lg:max-w-[38rem] xl:max-w-[40rem]"
           >
             <div className="relative overflow-hidden rounded-[1.4rem] border border-white/80 bg-white/75 p-1.5 shadow-[0_28px_90px_rgba(15,23,42,0.18)] backdrop-blur-xl sm:rounded-[1.7rem] sm:p-2">
               <div className="relative overflow-hidden rounded-[1.1rem] bg-gray-950 text-white sm:rounded-[1.35rem]">
@@ -174,7 +174,7 @@ const Hero: React.FC = () => {
                             <div className="hidden text-[0.64rem] font-medium uppercase tracking-[0.16em] text-white/52 lg:block xl:text-[0.66rem]">
                               {item.label}
                             </div>
-                            <div className="text-[0.74rem] font-normal leading-relaxed text-white/72 sm:text-[0.78rem] lg:text-[0.76rem] lg:leading-[1.5] xl:text-[0.84rem]">
+                            <div className="text-[0.7rem] font-normal leading-relaxed text-white/72 sm:text-[0.74rem] lg:text-[0.72rem] lg:leading-[1.5] xl:text-[0.8rem]">
                               {item.description}
                             </div>
                           </div>
@@ -202,13 +202,13 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="relative z-30 mt-10 flex justify-center lg:absolute lg:bottom-20 lg:left-0 lg:right-0 lg:mt-0"
+          className="relative z-30 mt-10 flex justify-center lg:absolute lg:bottom-24 lg:left-0 lg:right-0 lg:mt-0"
         >
           <button
             onClick={scrollToProcess}
-            className="flex flex-col items-center space-y-2 opacity-80 transition-opacity hover:opacity-100"
+            aria-label={t.learn}
+            className="flex items-center justify-center opacity-80 transition-opacity hover:opacity-100"
           >
-            <span className="text-sm font-inter text-gray-600">{t.learn}</span>
             <motion.div
               animate={{ y: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 1.5 }}
