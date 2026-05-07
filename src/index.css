@@ -434,6 +434,22 @@
 			.hero-bg > * { position: relative; z-index: 3; }
 			.hero-bg > * { position: relative; z-index: 4; }
 
+			.hero-title{
+				font-size: clamp(2.85rem, 11vw, 5.4rem);
+			}
+
+			@media (min-width: 1024px) and (max-height: 925px) {
+				.hero-title{
+					font-size: clamp(2.4rem, 7.2vw, 4.1rem);
+				}
+			}
+
+			@media (min-width: 1024px) and (max-height: 700px) {
+				.hero-title{
+					font-size: clamp(2.4rem, 7.2vw, 2rem);
+				}
+			}
+
 			@keyframes texture-drift {
 				0% { transform: translateY(0); }
 				50% { transform: translateY(-6px); }

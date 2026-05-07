@@ -109,7 +109,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.8 }}
             className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left"
           >
-            <h1 className="text-[clamp(2.85rem,11vw,5.4rem)] font-manrope font-semibold leading-[0.94] tracking-[-0.03em] text-gray-950">
+            <h1 className="hero-title font-manrope font-semibold leading-[0.94] tracking-[-0.03em] text-gray-950">
               <span>{t.headline1}</span>
               {renderHeadline2(t.headline2)}
             </h1>
