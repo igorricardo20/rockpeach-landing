@@ -17,18 +17,25 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 
 function App() {
-  const [lang, setLang] = useState(() => localStorage.getItem('rockpeach-lang') || 'en');
+  const [lang, setLang] = useState(() => {
+    const storedLang = localStorage.getItem('rockpeach-lang');
+    const languageVersion = localStorage.getItem('rockpeach-lang-default');
+    if (storedLang === 'en' && languageVersion !== 'nl-v1') return 'nl';
+    return storedLang || 'nl';
+  });
 
   // Broadcast language change to all components (including Navbar)
   useEffect(() => {
     localStorage.setItem('rockpeach-lang', lang);
+    localStorage.setItem('rockpeach-lang-default', 'nl-v1');
+    document.documentElement.lang = lang;
     window.dispatchEvent(new Event('rockpeach-lang-change'));
   }, [lang]);
 
   // Listen for language changes from other components/tabs
   useEffect(() => {
     const handler = () => {
-      const newLang = localStorage.getItem('rockpeach-lang') || 'en';
+      const newLang = localStorage.getItem('rockpeach-lang') || 'nl';
       if (newLang !== lang) setLang(newLang);
     };
     window.addEventListener('rockpeach-lang-change', handler);
