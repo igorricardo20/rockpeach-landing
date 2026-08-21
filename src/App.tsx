@@ -70,8 +70,8 @@ function App() {
       <div className="font-inter text-gray-900 overflow-x-hidden">
         <Navbar />
         <Hero />
-        <Process />
         <Services />
+        <Process />
         <About />
         {/* <Projects /> */}
         <Contact />
